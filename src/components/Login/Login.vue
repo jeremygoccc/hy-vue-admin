@@ -8,7 +8,7 @@
       <el-form-item label="密码" prop="password">
         <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
       </el-form-item>
-      <el-form-item>
+      <el-form-item class="el-form-item-button">
         <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">登录</el-button>
         <el-button @click="resetForm('loginForm')">重置</el-button>
       </el-form-item>
@@ -132,8 +132,8 @@ $light_gray = #eee
       margin 0 auto 40 auto
       text-align center
       font-weight bold
-    .el-form-item
-      .el-button
-        width: 48.6%
+      .el-form-item-button
+        display flex
+        justify-content center
 </style>
 
