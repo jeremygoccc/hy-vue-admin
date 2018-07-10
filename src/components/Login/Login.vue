@@ -132,8 +132,8 @@ $light_gray = #eee
       margin 0 auto 40 auto
       text-align center
       font-weight bold
-      .el-form-item-button
-        display flex
-        justify-content center
+    .el-form-item:last-child
+      display flex
+      justify-content center
 </style>
 

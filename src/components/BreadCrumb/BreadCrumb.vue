@@ -25,10 +25,9 @@ export default {
     methods: {
       getBreadCrumb () {
           let routes = []
-          console.dir(this.$route)
           menu.forEach(item => {
               if (!item.sub && item.componentName === this.$route.name) {
-                  console.log('无子组件匹配成功')
+                //   console.log('无子组件匹配成功')
                   let route = {
                       path: item.componentName,
                       name: item.name
@@ -38,7 +37,7 @@ export default {
               } else if (item.sub) {
                   item.sub.forEach(sub => {
                       if (sub.componentName === this.$route.name && sub.param === this.$route.query.info) {
-                          console.log('子组件匹配成功')
+                        //   console.log('子组件匹配成功')
                           let routePar = {
                               path: sub.componentName,
                               name: item.name
@@ -52,7 +51,7 @@ export default {
                   })
               }
           })
-          console.log(routes)
+        //   console.log(routes)
           this.routes = routes
       }
     },

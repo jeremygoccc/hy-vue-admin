@@ -8,6 +8,7 @@
               <img alt="" class="user-avatar" :src="avatar">
               <i class="el-icon-caret-bottom"></i>
             </div>
+            roles: {{ roles }}
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
               <router-link class="inlineBlock" to="/Admin">
                 <el-dropdown-item>

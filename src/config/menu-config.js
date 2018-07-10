@@ -3,12 +3,14 @@ module.exports = [
     name: "首页",
     id: "Home",
     icon: "el-icon-menu",
-    componentName: "Home"
+    componentName: "Home",
+    meta: { roles: [] }
   },
   {
     name: "个人中心",
     id: "userCenter",
     icon: "el-icon-message",
+    meta: { roles: [] },
     sub: [
       {
         name: "上传文档",
@@ -32,6 +34,7 @@ module.exports = [
     name: "信息管理",
     id: "basic",
     icon: "el-icon-document",
+    meta: { roles: [] },
     sub: [
       {
         name: "学生列表",
@@ -125,22 +128,24 @@ module.exports = [
       }
     ]
   },
-  // {
-  //   name: "操作管理",
-  //   id: "opreation",
-  //   icon: "el-icon-setting",
-  //   sub: [
-  //     {
-  //       name: "查看日志",
-  //       icon: "el-icon-setting",
-  //       componentName: "CheckLog"
-  //     }
-  //   ]
-  // },
+  {
+    name: "操作管理",
+    id: "opreation",
+    icon: "el-icon-setting",
+    meta: { roles: ["admin"] },
+    sub: [
+      {
+        name: "查看日志",
+        icon: "el-icon-setting",
+        componentName: "CheckLog"
+      }
+    ]
+  },
   {
     name: "说明",
     id: "illustrate",
     icon: "el-icon-setting",
-    componentName: "Illustrate"
+    componentName: "Illustrate",
+    meta: { roles: [] }
   }
 ];
