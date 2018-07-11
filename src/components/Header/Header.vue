@@ -8,15 +8,19 @@
               <img alt="" class="user-avatar" :src="avatar">
               <i class="el-icon-caret-bottom"></i>
             </div>
-            roles: {{ roles }}
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
-              <router-link class="inlineBlock" to="/Admin">
-                <el-dropdown-item>
-                  首页
-                </el-dropdown-item>
-              </router-link>
               <el-dropdown-item divided>
-                <span @click="logout">退出</span>
+                <router-link class="inlineBlock" to="/Admin">
+                    首页
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item divided>
+                <router-link class="inlineBlock" to="/Setting">
+                    设置
+                </router-link>
+              </el-dropdown-item>
+              <el-dropdown-item divided>
+                <span @click="logout" class="logout" style="color: red">退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
