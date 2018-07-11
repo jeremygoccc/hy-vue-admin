@@ -2,17 +2,19 @@
   <div class="pages">
     <template v-if="dynamicSearchs.length > 0">
       <el-form :model="dynamicForm">
-        <el-form-item v-for="(dynamicSearch, index) in dynamicSearchs" :key="index" :label="dynamicSearch.title" class="search-item">
+        <el-form-item v-for="(dynamicSearch, index) in dynamicSearchs" :key="index" class="search-item">
           <template v-if="dynamicSearch.search === 'select'">
-            <el-select palceholder="请选择" v-model="dynamicSearch.titile">
+            <el-select :placeholder="dynamicSearch.title" v-model="dynamicSearch.titile">
               <el-option v-for="(option, index) in dynamicSearch.options" :key="index" :label="option" :value="option"></el-option>
             </el-select>
           </template>
           <template v-else-if="dynamicSearch.search === 'text'">
-            <el-input class="search-input"></el-input>
+            <el-input class="search-input" :placeholder="dynamicSearch.title"></el-input>
           </template>
         </el-form-item>
       </el-form>
+      <el-button type="info" icon="el-icon-share" class="search-button">导出</el-button>
+      <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
     </template>
     <el-table ref="multipleTable" :data="tableData" v-loading="loading" stripe border style="width: 100%" tooltip-effect="dark" @selection-change="handleSelectionChange">
       <el-table-column type="selection"></el-table-column>
@@ -68,6 +70,7 @@ export default {
   },
   methods: {
     tableInit () {
+      this.dynamicSearchs = []
       this.tableFieldInit()
       this.setList()
     },
@@ -159,10 +162,13 @@ export default {
 .el-form
   display inline
   .el-form-item
-    display inline
-    width 100px
-    &__content
-      display inline
+    display inline-block
+    width 150px
+    float left
+    margin-right 30px
+.search-button
+  float right
+  margin-left 10px
 .opreation
   margin-top: 15px
   position: relative

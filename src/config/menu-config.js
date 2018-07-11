@@ -74,23 +74,28 @@ module.exports = [
         tableTitle: [
           {
             title: '班级名称',
-            field: 'name'
+            field: 'name',
+            search: 'select'
           },
           {
             title: '学院',
-            field: 'college'
+            field: 'college',
+            search: 'select'
           },
           {
             title: '辅导员',
-            field: 'instructor'
+            field: 'instructor',
+            search: 'text'
           },
           {
             title: '辅导员电话',
-            field: 'instructorNum'
+            field: 'instructorNum',
+            search: 'text'
           },
           {
             title: '入学年份',
-            field: 'entryYear'
+            field: 'entryYear',
+            search: 'select'
           }
         ]
       },
@@ -104,23 +109,28 @@ module.exports = [
         tableTitle: [
           {
             title: '姓名',
-            field: 'name'
+            field: 'name',
+            search: 'text'
           },
           {
             title: '性别',
-            field: 'sex'
+            field: 'sex',
+            search: 'select'
           },
           {
             title: '角色',
-            field: 'role'
+            field: 'role',
+            search: 'select'
           },
           {
             title: '部门',
-            field: 'department'
+            field: 'department',
+            search: 'select'
           },
           {
             title: '个人电话',
-            field: 'privateNum'
+            field: 'privateNum',
+            search: 'text'
           },
           {
             title: '上次登录',
