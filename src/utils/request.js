@@ -1,7 +1,7 @@
 import axios from 'axios'
-import store from '../store';
-import { getToken } from '@/utils/auth';
-import { Message, MessageBox } from 'element-ui';
+import store from '../store'
+import { getToken } from '@/utils/auth'
+import { Message, MessageBox } from 'element-ui'
 
 const service = axios.create({
     baseURL: process.env.BASE_API,
@@ -48,7 +48,7 @@ service.interceptors.response.use(
     }, err => {
         console.log('err' + err)
         Message({
-            messgae: error.messgae,
+            messgae: err.messgae,
             type: 'error',
             duration: 5 * 1000
         })

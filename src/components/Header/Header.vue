@@ -73,9 +73,12 @@ export default {
       cursor pointer
       position relative
       .user-avatar
-        width 40px
-        height 40px
-        border-radius 10px
+        width 50px
+        height 50px
+        border-radius 50%
+        position: absolute
+        right 15px
+        top 3px
       .el-icon-caret-bottom
         position absolute
         right -20px

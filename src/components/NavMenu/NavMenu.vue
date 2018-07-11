@@ -3,7 +3,7 @@
         <el-col :span="24">
             <el-menu default-active="2" @open="handleOpen" @close="handleClose" class="el-menu-vertical-demo" unique-opened router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                 <template v-for="item in menu">
-                    <template v-if="isVisible(item.meta.roles)">
+                    <template v-if="!item.hasOwnProperty('meta') || !item.meta.hasOwnProperty('roles') || isVisible(item.meta.roles)">
                         <el-menu-item v-if="!item.sub" :index="item.id" :key="item.id">
                             <i :class="item.icon"></i>&nbsp;
                             <span v-text="item.name"></span>
@@ -32,20 +32,20 @@ export default {
     name: 'NavMenu',
     data() {
         return {
-					menu: menu,
-					// roles: []
+			menu: menu,
+			// roles: []
         };
     },
     components: {
 
-		},
-		created () {
-			// console.log(this.$store.getters.roles)
-			// this.roles = this.$store.getters.roles
-		},
+	},
+	created () {
+		// console.log(this.$store.getters.roles)
+		// this.roles = this.$store.getters.roles
+	},
     computed: {
         ...mapGetters([
-      			'name',
+      		'name',
             'roles'
         ])
     },
@@ -57,16 +57,16 @@ export default {
           console.log(key, keyPath);
         },
         isVisible (metaRoles) {
-						let flag = false
-						if (metaRoles.length == 0) return true
+			let flag = false
+			if (metaRoles.length == 0) return true
             metaRoles.some(metaRole => {
                 this.roles.some(role => {
                     if (role === metaRole) {
-											flag = true
-											return true
-										}
+						flag = true
+						return true
+					}
                 })
-						})
+			})
             return flag
         }
     }

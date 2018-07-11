@@ -4,7 +4,6 @@ module.exports = [
     id: "Home",
     icon: "el-icon-menu",
     componentName: "Home",
-    meta: { roles: [] }
   },
   {
     name: "个人中心",
@@ -34,7 +33,6 @@ module.exports = [
     name: "信息管理",
     id: "basic",
     icon: "el-icon-document",
-    meta: { roles: [] },
     sub: [
       {
         name: "学生列表",
@@ -146,6 +144,5 @@ module.exports = [
     id: "illustrate",
     icon: "el-icon-setting",
     componentName: "Illustrate",
-    meta: { roles: [] }
   }
 ];
