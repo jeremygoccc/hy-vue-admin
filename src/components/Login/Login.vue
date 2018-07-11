@@ -1,19 +1,72 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" ref="loginForm" label-position="left">
-      <h3 class="title">vue-element-admin</h3>
-      <el-form-item label="账号" prop="username">
-        <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
-      </el-form-item>
-      <el-form-item class="el-form-item-button">
-        <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">登录</el-button>
-        <el-button @click="resetForm('loginForm')">重置</el-button>
-      </el-form-item>
-    </el-form>
-  </div>
+      <div class="loginbox" v-show="loginStatus">
+         <el-form  id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon label-width="80px" ref="loginForm" label-position="left">
+          <h3 class="title">vue-element-admin</h3>
+          <el-form-item label="账号" prop="username">
+            <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
+          </el-form-item>
+          <el-form-item label="密码" prop="password">
+            <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
+          </el-form-item>
+          <el-form-item class="el-form-item-button">
+            <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
+            <el-button type="primary" @click="showregister()">注册界面</el-button>
+            <el-button @click="resetForm('loginForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+
+      <div class="loginbox registerbox" v-show="registerStatus" style="display:none;">
+        <el-form  id="register" class="login-form">
+
+          <el-form-item label="照片上传">
+            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+              <img v-if="imageUrl" :src="imageUrl" class="avatar">
+              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            </el-upload>
+          </el-form-item>
+          <el-form-item label="姓名(中)" prop="username">
+            <el-input class="username" name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
+          </el-form-item>
+           <el-form-item label="姓名(英)" prop="username">
+            <el-input class="username" name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
+          </el-form-item>
+           <el-form-item label="单位">
+            <el-input type="text"></el-input>
+          </el-form-item>
+          <el-form-item label="领域">
+            <el-cascader
+              :options="options2"
+              @active-item-change="handleItemChange"
+              :props="props"
+            ></el-cascader>
+          </el-form-item>
+          <el-form-item label="方向">
+            <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
+            <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
+          </el-form-item>
+          <el-form-item label="通讯邮箱">
+            <el-input type="text"></el-input>
+          </el-form-item>
+          <el-form-item label="个人网页链接">
+            <el-input type="text"></el-input>
+          </el-form-item>
+          
+          <el-form-item label="密码" prop="password">
+            <el-input class="psw" name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
+          </el-form-item>
+          <el-form-item class="el-form-item-button">
+            <el-button type="primary" @click="showLogin()">登录界面</el-button>
+            <el-button type="primary" @click="register()">立即注册</el-button>
+            <el-button @click="resetForm('loginForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
+
+    </div>
+    
+  
 </template>
 
 <script type="text/ecmascript-6">
@@ -21,6 +74,8 @@ import { isValidUsername } from '@/utils/validate'
 
 export default {
   name: 'Login',
+  
+  
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!isValidUsername(value)) {
@@ -45,9 +100,23 @@ export default {
         username: [{ required: true, trigger: 'blur', validator: validateUsername}],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
+      options2: [{
+          label: 'A(物理)',
+          cities: []
+        }, {
+          label: 'B(计算机)',
+          cities: []
+        }],
+        props: {
+          value: 'label',
+          children: 'cities'
+        },
       loading: false,
-      pwdType: 'password'
+      pwdType: 'password',
+      loginStatus: true,
+      registerStatus: false
     }
+    
   },
   created () {
   },
@@ -71,9 +140,62 @@ export default {
         }
       })
     },
+    showLogin: function() {
+            document.getElementById("login").reset();
+            this.loginStatus = true;
+            this.registerStatus = false;
+        },
+        //点击注册
+    showregister: function() {
+            document.getElementById("register").reset();
+            this.loginStatus = false;
+            this.registerStatus = true;
+        },
+    register () {
+      var obj = {}
+      var flag = false
+      var username = $(".registerbox").find(".username").val()
+      var psw = $(".registerbox").find(".psw").val()
+      for(var i = 0,len = this.users.length;i<len;i++)
+      {
+        if(this.users[i].username === username)
+        {
+          flag = true;
+          alert("该用户已被注册!")
+          break
+        }
+      }
+      if(!flag)
+      {
+        if(username == ""||psw == "")
+        {
+          alert("账号密码不能为空");
+        }else{
+          obj.username = username
+          obj.password = psw
+          alert("注册成功")
+        }
+      }
+
+    },
+    
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    }
+    },
+      handleItemChange(val) {
+        console.log('active item:', val);
+        setTimeout(_ => {
+          if (val.indexOf('A(物理)') > -1 && !this.options2[0].cities.length) {
+            this.options2[0].cities = [{
+              label: 'A01光学'
+            }];
+          } else if (val.indexOf('B(计算机)') > -1 && !this.options2[1].cities.length) {
+            this.options2[1].cities = [{
+              label: 'B01计算机科学'
+            }];
+          }
+        }, 300);
+      }
   },
   components: {
 
@@ -83,7 +205,7 @@ export default {
 
 <style lang="stylus">
 $bg = #2d3a4b
-$light_gray = #eee
+$light_gray = #616161
 
 .login-container
   .el-input
@@ -105,21 +227,23 @@ $light_gray = #eee
     border 1px solid rgba(255, 255, 255, 0.1)
     background rgba(0, 0, 0, 0.1)
     border-radius 5px
-    color #454545
+    color #eee
 </style>
 
 <style lang="stylus" scoped>
-$bg = #2d3a4b
+$bg = #d5def5
 $dark_gray = #889aa4
-$light_gray = #eee
-
+$light_gray = #90aeff
 .login-container
-  position fixed
+  
   height 100%
   width 100%
   background-color $bg
+  //background-image linear-gradient(45deg,#063053, #9951ff)
   .login-form
+    // height 100%
     position absolute
+    background-color #d5def5
     left 0
     right 0
     width 520px
@@ -135,5 +259,32 @@ $light_gray = #eee
     .el-form-item:last-child
       display flex
       justify-content center
+    .inputtext
+      width 30%
+    .avatar-uploader .el-upload 
+      border: 1px dashed #d9d9d9;
+      border-radius: 6px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+  
+    .avatar-uploader .el-upload:hover 
+      border-color: #409EFF;
+    
+    .avatar-uploader-icon 
+      font-size: 28px;
+      color: #8c939d;
+      width: 178px;
+      height: 178px;
+      line-height: 178px;
+      text-align: center;
+    
+    .avatar 
+      width: 178px;
+      height: 178px;
+      display: block;
+  
+
+     
 </style>
 
