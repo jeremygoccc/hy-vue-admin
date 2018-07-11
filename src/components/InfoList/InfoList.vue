@@ -1,5 +1,19 @@
 <template>
   <div class="pages">
+    <template v-if="dynamicSearchs.length > 0">
+      <el-form :model="dynamicForm">
+        <el-form-item v-for="(dynamicSearch, index) in dynamicSearchs" :key="index" :label="dynamicSearch.title" class="search-item">
+          <template v-if="dynamicSearch.search === 'select'">
+            <el-select palceholder="请选择" v-model="dynamicSearch.titile">
+              <el-option v-for="(option, index) in dynamicSearch.options" :key="index" :label="option" :value="option"></el-option>
+            </el-select>
+          </template>
+          <template v-else-if="dynamicSearch.search === 'text'">
+            <el-input class="search-input"></el-input>
+          </template>
+        </el-form-item>
+      </el-form>
+    </template>
     <el-table ref="multipleTable" :data="tableData" v-loading="loading" stripe border style="width: 100%" tooltip-effect="dark" @selection-change="handleSelectionChange">
       <el-table-column type="selection"></el-table-column>
       <el-table-column v-for="(info, index) in tableInfo" :key="index" :prop="info.field" :label="info.title"></el-table-column>
@@ -29,6 +43,8 @@ import axios from '@/axios/api.js'
 export default {
   data() {
     return {
+      dynamicForm: {},
+      dynamicSearchs: [],
       tableInfo: [],
       tableData: [],
       url: '',
@@ -56,29 +72,65 @@ export default {
       this.setList()
     },
     tableFieldInit () {
-      menus.forEach(item => {
-        if (item.componentName === this.$route.name && (item.param && item.param === this.$route.query.info || !item.param)) {
+      menus.some(item => {
+        if (item.componentName === this.$route.name && (!item.param || item.param === this.$route.query.info)) {
           if (item.tableTitle) {
-            this.tableInfo = item.tableTitle
-            this.url = item.url
+            this.tableFieldConInit(item)
+            return true
           }
         }
         if (item.sub)
-          item.sub.forEach(sub => {
-            if (sub.componentName === this.$route.name && (sub.param && sub.param === this.$route.query.info || !sub.param)) {
+          item.sub.some(sub => {
+            if (sub.componentName === this.$route.name && (!sub.param || sub.param === this.$route.query.info)) {
               if (sub.tableTitle) {
-                this.tableInfo = sub.tableTitle
-                this.url = sub.url
+                this.tableFieldConInit(sub)
+                return true
               }
             }
           })
       })
     },
+    tableFieldConInit (item) {
+      this.tableInfo = item.tableTitle
+      this.url = item.url
+      item.tableTitle.forEach(title => {
+        if (title.hasOwnProperty('search')) {
+          console.log(title.field)
+          this.dynamicSearchs.push({
+            search: title.search,
+            field: title.field,
+            title: title.title,
+            options: []
+          })
+        }
+      })
+    },
+    tableSearchsInit () {
+      if (!this.dynamicSearchs) return;
+      this.dynamicSearchs.forEach(dynamicSearch => {
+        if (dynamicSearch.search === 'select') {
+          let fields = []
+          console.log(dynamicSearch.field)
+          this.tableData.forEach(data => {   // 这里后期应该是所有数据
+            console.log(data)
+            for (let key in data) {
+              console.log(key)
+              if (key === dynamicSearch.field) {
+                if (fields.indexOf(data[key]) === -1) fields.push(data[key])
+              }
+            }
+          })
+          dynamicSearch.options = fields
+        }
+      })
+      console.log(this.dynamicSearchs)
+    },
     setList () {
       axios.getList(this.url)
           .then(res => {
-            console.log(res)
             this.tableData = res.data.splice(this.start, this.length)
+            console.log(this.tableData)
+            this.tableSearchsInit()
             this.loading = false
           })
     },
@@ -104,6 +156,13 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.el-form
+  display inline
+  .el-form-item
+    display inline
+    width 100px
+    &__content
+      display inline
 .opreation
   margin-top: 15px
   position: relative
