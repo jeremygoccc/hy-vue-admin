@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-      <div class="loginbox" v-if="loginStatus">
+      <div class="loginbox">
          <el-form  id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon label-width="80px" ref="loginForm" label-position="left">
           <h3 class="title">vue-element-admin</h3>
           <el-form-item label="账号" prop="username">
@@ -11,51 +11,6 @@
           </el-form-item>
           <el-form-item class="el-form-item-button">
             <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
-            <el-button type="primary" @click="switchPages()">注册界面</el-button>
-            <el-button @click="resetForm('loginForm')">重置</el-button>
-          </el-form-item>
-        </el-form>
-      </div>
-      <div class="loginbox registerbox" v-else>
-        <el-form  id="register" class="login-form">
-          <el-form-item label="照片上传">
-            <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" drag :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-              <img v-if="imageUrl" :src="imageUrl" class="avatar">
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </el-form-item>
-          <el-form-item label="姓名(中)" prop="username">
-            <el-input class="username" name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
-          </el-form-item>
-           <el-form-item label="姓名(英)" prop="username">
-            <el-input class="username" name="username" type="text" v-model="loginForm.userename" autoComplete="on" placeholder="username"></el-input>
-          </el-form-item>
-           <el-form-item label="单位">
-            <el-input type="text"></el-input>
-          </el-form-item>
-          <el-form-item label="领域">
-            <el-cascader
-              :options="options2"
-              @active-item-change="handleItemChange"
-              :props="props"
-            ></el-cascader>
-          </el-form-item>
-          <el-form-item label="方向">
-            <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
-            <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
-          </el-form-item>
-          <el-form-item label="通讯邮箱">
-            <el-input type="text"></el-input>
-          </el-form-item>
-          <el-form-item label="个人网页链接">
-            <el-input type="text"></el-input>
-          </el-form-item>
-          <el-form-item label="密码" prop="password">
-            <el-input class="psw" name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
-          </el-form-item>
-          <el-form-item class="el-form-item-button">
-            <el-button type="primary" @click="switchPages()">登录界面</el-button>
-            <el-button type="primary" @click="register()">立即注册</el-button>
             <el-button @click="resetForm('loginForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -93,20 +48,8 @@ export default {
         username: [{ required: true, trigger: 'blur', validator: validateUsername}],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
-      options2: [{
-          label: 'A(物理)',
-          cities: []
-        }, {
-          label: 'B(计算机)',
-          cities: []
-        }],
-        props: {
-          value: 'label',
-          children: 'cities'
-        },
       loading: false,
       pwdType: 'password',
-      loginStatus: true
     }
   },
   created () {
@@ -138,20 +81,6 @@ export default {
     },
     resetForm (formName) {
       this.$refs[formName].resetFields()
-    },
-    handleItemChange(val) {
-      console.log('active item:', val);
-      setTimeout(_ => {
-        if (val.indexOf('A(物理)') > -1 && !this.options2[0].cities.length) {
-          this.options2[0].cities = [{
-            label: 'A01光学'
-          }];
-        } else if (val.indexOf('B(计算机)') > -1 && !this.options2[1].cities.length) {
-          this.options2[1].cities = [{
-            label: 'B01计算机科学'
-          }];
-        }
-      }, 300);
     }
   },
   components: {
@@ -215,26 +144,5 @@ $light_gray = #90aeff
     .el-form-item:last-child
       display flex
       justify-content center
-    .inputtext
-      width 30%
-    .avatar-uploader .el-upload
-      border 1px dashed #d9d9d9
-      border-radius 6px
-      cursor pointer
-      position relative
-      overflow hidden
-    .avatar-uploader .el-upload:hover
-      border-color #409EFF
-    .avatar-uploader-icon
-      font-size 28px
-      color #8c939d
-      width 178px
-      height 178px
-      line-height 178px
-      text-align center
-    .avatar
-      width 178px
-      height 178px
-      display block
 </style>
 
