@@ -7,9 +7,9 @@ Vue.use(Router)
 let routes = []
 
 routes.push({
-  path: "/",
-  name: "Login",
-  redirect: "/Login",
+  path: '/',
+  name: 'Login',
+  redirect: '/Login',
   component: () => import(`@/components/Login/Login`),
   children: [{
     path: '/Login',
