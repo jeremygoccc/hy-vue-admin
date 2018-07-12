@@ -109,7 +109,7 @@ export default {
       })
     },
     tableSearchsInit () {
-      if (!this.dynamicSearchs) return;
+      if (!this.dynamicSearchs) return
       this.dynamicSearchs.forEach(dynamicSearch => {
         if (dynamicSearch.search === 'select') {
           let fields = []
