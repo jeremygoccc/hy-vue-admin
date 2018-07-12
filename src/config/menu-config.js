@@ -3,7 +3,7 @@ module.exports = [
     name: '首页',
     id: 'Home',
     icon: 'el-icon-menu',
-    componentName: 'Home',
+    componentName: 'Home'
   },
   {
     name: '个人中心',
@@ -40,7 +40,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'student',
         url:
-          'https://easy-mock.com/mock/5b3f5c1f18892e144d79f955/hyVue/info/studentList',
+          '/info/studentList',
         tableTitle: [
           {
             title: '名字',
@@ -70,7 +70,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'class',
         url:
-          'https://easy-mock.com/mock/5b3f5c1f18892e144d79f955/hyVue/info/classList',
+          '/info/classList',
         tableTitle: [
           {
             title: '班级名称',
@@ -105,7 +105,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'teacher',
         url:
-          'https://easy-mock.com/mock/5b3f5c1f18892e144d79f955/hyVue/info/teacherList',
+          '/info/teacherList',
         tableTitle: [
           {
             title: '姓名',
@@ -157,6 +157,6 @@ module.exports = [
     name: '说明',
     id: 'illustrate',
     icon: 'el-icon-setting',
-    componentName: 'Illustrate',
+    componentName: 'Illustrate'
   }
-];
+]

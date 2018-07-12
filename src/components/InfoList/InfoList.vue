@@ -1,7 +1,7 @@
 <template>
   <div class="pages">
     <template v-if="dynamicSearchs.length > 0">
-      <el-form :model="dynamicForm">
+      <el-form :model="dynamicForm" :inline="true">
         <el-form-item v-for="(dynamicSearch, index) in dynamicSearchs" :key="index" class="search-item">
           <template v-if="dynamicSearch.search === 'select'">
             <el-select :placeholder="dynamicSearch.title" v-model="dynamicSearch.titile">
@@ -12,9 +12,9 @@
             <el-input class="search-input" :placeholder="dynamicSearch.title"></el-input>
           </template>
         </el-form-item>
+        <el-button type="info" icon="el-icon-share" class="search-button">导出</el-button>
+        <el-button type="primary" icon="el-icon-search" class="search-button" @click="onSubmit">搜索</el-button>
       </el-form>
-      <el-button type="info" icon="el-icon-share" class="search-button">导出</el-button>
-      <el-button type="primary" icon="el-icon-search" class="search-button">搜索</el-button>
     </template>
     <el-table ref="multipleTable" :data="tableData" v-loading="loading" stripe border style="width: 100%" tooltip-effect="dark" @selection-change="handleSelectionChange">
       <el-table-column type="selection"></el-table-column>
@@ -24,7 +24,7 @@
       <el-button-group>
         <el-button type="primary" @click="dialogVisible = true">编辑</el-button>
         <el-button type="danger">删除</el-button>
-        <span v-if="selected.length" class="selected">选中{{selected.length}}条</span>
+        <span v-if="selected.length" class="selected">选中{{ selected.length }}条</span>
       </el-button-group>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length*this.length"></el-pagination>
     </div>
@@ -39,8 +39,9 @@
 </template>
 
 <script type="text/ecmascript-6">
-import menus from '@/config/menu-config.js'
-import axios from '@/axios/api.js'
+import menus from '@/config/menu-config'
+import { getList } from '@/api/list'
+import { login } from '@/api/login'
 
 export default {
   data() {
@@ -129,7 +130,7 @@ export default {
       console.log(this.dynamicSearchs)
     },
     setList () {
-      axios.getList(this.url)
+      getList(this.url)
           .then(res => {
             this.tableData = res.data.splice(this.start, this.length)
             console.log(this.tableData)
@@ -153,19 +154,15 @@ export default {
     },
     handleSizeChange (e) {
       console.log(e)
+    },
+    onSubmit (e) {
+      console.log(e)
     }
   }
 }
 </script>
 
 <style scoped lang="stylus">
-.el-form
-  display inline
-  .el-form-item
-    display inline-block
-    width 150px
-    float left
-    margin-right 30px
 .search-button
   float right
   margin-left 10px

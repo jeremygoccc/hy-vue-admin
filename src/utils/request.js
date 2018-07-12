@@ -9,9 +9,11 @@ const service = axios.create({
   timeout: 5000
 })
 
+service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+
 service.interceptors.request.use(config => {
   if (store.getters.token) {
-    config.headers['X-Token'] = getToken()  // 设置请求头携带自定义token
+    config.headers['X-Token'] = getToken() // 设置请求头携带自定义token
   }
   return config
 }, err => {
@@ -25,7 +27,7 @@ service.interceptors.response.use(
     console.log(response)
     console.log(res.code)
     console.log(res.token)
-    if (res.code !== 20000) {   // code非 20000抛错
+    if (res.code !== 20000) { // code非 20000抛错
       Message({
         messgae: res.messgae,
         type: 'error',

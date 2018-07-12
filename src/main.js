@@ -9,7 +9,6 @@ import App from './App'
 import router from './router'
 import store from './store'
 
-import './mock'
 import './permission'
 
 Vue.config.productionTip = false
