@@ -1,7 +1,7 @@
 <template>
   <div class="login-container">
       <div class="loginbox">
-         <el-form  id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon label-width="80px" ref="loginForm" label-position="left">
+         <el-form  id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon ref="loginForm" label-position="left">
           <h3 class="title">vue-element-admin</h3>
           <el-form-item label="账号" prop="username">
             <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
@@ -10,7 +10,7 @@
             <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
           </el-form-item>
           <el-form-item class="el-form-item-button">
-            <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
+            <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">登录</el-button>
             <el-button @click="resetForm('loginForm')">重置</el-button>
           </el-form-item>
         </el-form>
@@ -117,18 +117,17 @@ $light_gray = #616161
 </style>
 
 <style lang="stylus" scoped>
-$bg = #d5def5
+$bg = #2d3a4b
 $dark_gray = #889aa4
 $light_gray = #90aeff
 .login-container
+  position fixed
   height 100%
   width 100%
   background-color $bg
-  //background-image linear-gradient(45deg,#063053, #9951ff)
   .login-form
-    // height 100%
     position absolute
-    background-color #d5def5
+    // background-color #d5def5
     left 0
     right 0
     width 520px

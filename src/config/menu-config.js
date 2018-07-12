@@ -6,30 +6,6 @@ module.exports = [
     componentName: 'Home'
   },
   {
-    name: '个人中心',
-    id: 'userCenter',
-    icon: 'el-icon-message',
-    meta: { roles: [] },
-    sub: [
-      {
-        name: '上传文档',
-        componentName: 'Documents'
-      },
-      {
-        name: '短信互送',
-        componentName: 'SmsManager'
-      },
-      {
-        name: '积分系统',
-        componentName: 'PointsSystem'
-      },
-      {
-        name: '设置',
-        componentName: 'Setting'
-      }
-    ]
-  },
-  {
     name: '信息管理',
     id: 'basic',
     icon: 'el-icon-document',

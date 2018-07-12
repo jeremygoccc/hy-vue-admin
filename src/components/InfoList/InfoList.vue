@@ -4,16 +4,19 @@
       <el-form :model="dynamicForm" :inline="true">
         <el-form-item v-for="(dynamicSearch, index) in dynamicSearchs" :key="index" class="search-item">
           <template v-if="dynamicSearch.search === 'select'">
-            <el-select :placeholder="dynamicSearch.title" v-model="dynamicSearch.titile">
+            <el-select :placeholder="dynamicSearch.title" v-model="dynamicSearch.titile" style="width: 150px">
               <el-option v-for="(option, index) in dynamicSearch.options" :key="index" :label="option" :value="option"></el-option>
             </el-select>
           </template>
           <template v-else-if="dynamicSearch.search === 'text'">
-            <el-input class="search-input" :placeholder="dynamicSearch.title"></el-input>
+            <el-input class="search-input" :placeholder="dynamicSearch.title" style="width: 150px"></el-input>
           </template>
         </el-form-item>
-        <el-button type="info" icon="el-icon-share" class="search-button">导出</el-button>
-        <el-button type="primary" icon="el-icon-search" class="search-button" @click="onSubmit">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" class="search-button" @click="onSubmit" round>搜索</el-button>
+        <el-button-group style="float: right">
+          <el-button type="success" class="search-button" @click="addVisible = true">新增</el-button>
+          <el-button type="info" class="search-button" @click="exportExcel">导出</el-button>
+        </el-button-group>
       </el-form>
     </template>
     <el-table ref="multipleTable" :data="tableData" v-loading="loading" stripe border style="width: 100%" tooltip-effect="dark" @selection-change="handleSelectionChange">
@@ -22,19 +25,48 @@
     </el-table>
     <div class="opreation">
       <el-button-group>
-        <el-button type="primary" @click="dialogVisible = true">编辑</el-button>
+        <el-button type="primary" @click="edit" :disabled="selected.length >= 2">编辑</el-button>
         <el-button type="danger">删除</el-button>
         <span v-if="selected.length" class="selected">选中{{ selected.length }}条</span>
       </el-button-group>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20, 50, 100]" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length*this.length"></el-pagination>
     </div>
-    <!-- <el-dialog title="提示" width="30%" :visiable.sync="dialogVisible">
-      <span>选中了 {{ selected.length }} 条</span>
+    <el-dialog title="信息编辑" width="30%" :visible.sync="editVisible">
+      <el-form :model="dynamicForm">
+        <el-form-item v-for="(editData, index) in editDatas" :key="index" class="search-item" :label="editData.title" label-width="100px" size="medium">
+          <template v-if="editData.search === 'select'">
+            <el-select :placeholder="editData.title" v-model="editData.val" :value="editData.val">
+              <el-option v-for="(option, index) in editData.options" :key="index" :label="option" :value="option"></el-option>
+            </el-select>
+          </template>
+          <template v-else-if="editData.search === 'text'">
+            <el-input class="search-input" :placeholder="editData.title" :value="editData.val"></el-input>
+          </template>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button type="danger" @click="dialogVisible = false">取消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确定</el-button>
+        <el-button type="danger" @click="editVisible = false">取消</el-button>
+        <el-button type="success" @click="editVisible = false">提交</el-button>
       </span>
-    </el-dialog> -->
+    </el-dialog>
+    <el-dialog title="信息新增" width="30%" :visible.sync="addVisible">
+      <el-form :model="dynamicForm">
+        <el-form-item v-for="(editData, index) in editDatas" :key="index" class="search-item" :label="editData.title" label-width="100px" size="medium">
+          <template v-if="editData.search === 'select'">
+            <el-select :placeholder="editData.title" v-model="addData.val">
+              <el-option v-for="(option, index) in editData.options" :key="index" :label="option" :value="option"></el-option>
+            </el-select>
+          </template>
+          <template v-else-if="editData.search === 'text'">
+            <el-input class="search-input" :placeholder="editData.title"></el-input>
+          </template>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="danger" @click="editVisible = false">取消</el-button>
+        <el-button type="success" @click="editVisible = false">提交</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,6 +74,7 @@
 import menus from '@/config/menu-config'
 import { getList } from '@/api/list'
 import { login } from '@/api/login'
+import InfoForm from '@/components/InfoForm/InfoForm'
 
 export default {
   data() {
@@ -51,9 +84,12 @@ export default {
       tableInfo: [],
       tableData: [],
       url: '',
-      dialogVisible: false,
+      editVisible: false,
+      addVisible: false,
       loading: true,
       selected: [],
+      editDatas: [],
+      addData: [],
       currentPage: 1,
       start: 0,
       length: 10
@@ -99,7 +135,7 @@ export default {
       this.url = item.url
       item.tableTitle.forEach(title => {
         if (title.hasOwnProperty('search')) {
-          console.log(title.field)
+          // console.log(title.field)
           this.dynamicSearchs.push({
             search: title.search,
             field: title.field,
@@ -114,11 +150,11 @@ export default {
       this.dynamicSearchs.forEach(dynamicSearch => {
         if (dynamicSearch.search === 'select') {
           let fields = []
-          console.log(dynamicSearch.field)
+          // console.log(dynamicSearch.field)
           this.tableData.forEach(data => {   // 这里后期应该是所有数据
-            console.log(data)
+            // console.log(data)
             for (let key in data) {
-              console.log(key)
+              // console.log(key)
               if (key === dynamicSearch.field) {
                 if (fields.indexOf(data[key]) === -1) fields.push(data[key])
               }
@@ -127,7 +163,7 @@ export default {
           dynamicSearch.options = fields
         }
       })
-      console.log(this.dynamicSearchs)
+      // console.log(this.dynamicSearchs)
     },
     setList () {
       getList(this.url)
@@ -139,9 +175,30 @@ export default {
           })
     },
     edit () {
-      this.dialogVisible = true
-      console.log(this.dialogVisible)
-      // this.$refs.multipleTable.toggleRowSelection()
+      this.editVisible = true
+      this.editDatas = []
+      var selected = this.selected[0]
+      this.tableInfo.forEach(info => {
+        let fields = []
+        if (info.search === 'select') {
+          this.tableData.forEach(data => {
+            for (let key in data) {
+              if (key === info.field) {
+                if (fields.indexOf(data[key]) === -1) fields.push(data[key])
+              }
+            }
+          })
+          info.options = fields
+        }
+        this.editDatas.push({
+          title: info.title,
+          field: info.field,
+          search: info.search,
+          val: selected[info.field],
+          options: info.options
+        })
+      })
+      console.log(this.editDatas)
     },
     handleSelectionChange (val) {
       this.multipleSelection = val
@@ -157,6 +214,9 @@ export default {
     },
     onSubmit (e) {
       console.log(e)
+    },
+    exportExcel () {
+
     }
   }
 }
@@ -164,8 +224,9 @@ export default {
 
 <style scoped lang="stylus">
 .search-button
-  float right
+  // float right
   margin-left 10px
+  margin-bottom 20px
 .opreation
   margin-top: 15px
   position: relative

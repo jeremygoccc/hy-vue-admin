@@ -11,6 +11,6 @@
 ## 使用
 
 - `npm install`  安装项目依赖
-- `npm run dev`  运行本地环境 [http://localhost:8080]
+- `npm run dev`  运行本地环境 <http://localhost:8080>
 - `npm run build` 编译
 
