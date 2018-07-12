@@ -243,7 +243,6 @@ $light_gray = #90aeff
   .login-form
     // height 100%
     position absolute
-    background-color #d5def5
     left 0
     right 0
     width 520px
