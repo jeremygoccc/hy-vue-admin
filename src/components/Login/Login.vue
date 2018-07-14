@@ -40,11 +40,18 @@
                   :props="props"
                 ></el-cascader>
               </el-form-item>
-              <el-form-item label="方向">
+              <el-form-item label="方向" >
+               <el-select v-model="value5" multiple placeholder="请选择" style="width:300px">
+                <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
                 <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
                 <el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input><el-input type="text" class="inputtext" placeholder="请输入关键词"></el-input>
               </el-form-item>
               <el-form-item label="通讯邮箱">
+                <el-input type="text"></el-input>
+              </el-form-item>
+              <el-form-item label="验证码">
                 <el-input type="text"></el-input>
               </el-form-item>
               <el-form-item label="个人网页链接">
@@ -95,6 +102,24 @@ export default {
         username: [{ required: true, trigger: 'blur', validator: validateUsername}],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
+      options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value5: [],
+      
       options2: [{
           label: 'A(物理)',
           cities: []
@@ -174,7 +199,7 @@ $light_gray = #616161
   background-position '25px auto'
   background-size cover
   width 100%
-  height auto
+  min-height 100%
   position absolute
   
   // background #50a3a2
@@ -192,16 +217,20 @@ $light_gray = #616161
       -webkit-appearance none
       border-radius 0
       padding 12px 5px 12px 15px
-      color $light_gray
+      
       height 47px
       &:-webkit-autofill
         -webkit-box-shadow 0 0 0 1000px $bg inset!important
         -webkit-text-fill-color #fff!important
   .el-form-item
+    color #d9dbde
     border 1px solid rgba(255, 255, 255, 0.1)
     // background rgba(0, 0, 0, 0.1)
     border-radius 5px
-    color #eee
+    &__label
+      width 75px
+      color white!important
+    
 </style>
 
 <style lang="stylus" scoped>
@@ -209,16 +238,14 @@ $bg = #d5def5
 $dark_gray = #889aa4
 $light_gray = #90aeff
 .login-container
-  
-	
-	
+
   //width 100%
   //background-color $bg
   //background-image linear-gradient(45deg,#063053, #9951ff)
   .login-form
     // height 100%
     //position absolute
-    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8) 0%, rgba(0,0,0,0.6) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 100%, rgba(0,0,0,0.6) 100%);
     left 0
     right 0
     width 520px
@@ -232,8 +259,11 @@ $light_gray = #90aeff
       text-align center
       font-weight bold
     .el-form-item:last-child
+      color #d9dbde
       display flex
       justify-content center
+    
+
     .inputtext
       width 30%
     .avatar-uploader .el-upload
@@ -255,6 +285,8 @@ $light_gray = #90aeff
       width 178px
       height 178px
       display block
+
+    
     
       
     
