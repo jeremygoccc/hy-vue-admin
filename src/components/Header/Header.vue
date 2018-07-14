@@ -3,6 +3,15 @@
       <el-col :span="24">
           <i class="el-icon-setting"></i>
           <Breadcrumb></Breadcrumb>
+          <el-badge :value="12">
+            <el-dropdown>
+              <i class="el-icon-bell"></i>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item>第一封邮件</el-dropdown-item>
+                <el-dropdown-item>第二封邮件</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </el-badge>
           <el-dropdown class="avatar-container">
             <div class="avatar-wrapper">
               <img alt="" class="user-avatar" :src="avatar">
@@ -64,10 +73,24 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+$font-size = 16px
 .el-col
   .el-breadcrumb
     display inline-block
     margin-left 10px
+  .el-badge
+    position absolute
+    top 20px
+    right 150px
+    &__content
+      font-size 10px!important
+    .el-dropdown
+      font-size 1.5 * $font-size
+      .el-icon-bell
+        position absolute
+        right 5px
+        top -35px
+        color #fff
   .avatar-container
     height 50px
     display inline-block

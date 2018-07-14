@@ -6,6 +6,7 @@ Vue.use(Router)
 
 let routes = []
 
+// 公共路由配置
 routes.push({
   path: '/',
   name: 'Login',
@@ -15,16 +16,12 @@ routes.push({
     path: '/Login',
     component: () => import(`@/components/Login/Login`)
   }]
-});
-
-routes.push({
+}, {
   path: '/Home',
   name: 'Home',
   redirect: '/Admin',
   component: () => import(`@/components/Admin/Admin`)
-})
-
-routes.push({
+}, {
   path: '/Admin',
   name: 'Admin',
   component: () => import(`@/components/Admin/Admin`),
@@ -33,8 +30,18 @@ routes.push({
     name: 'Home',
     component: () => import(`@/components/Home/Home`)
   }]
+}, {
+  path: '/Setting',
+  name: 'Admin',
+  component: () => import(`@/components/Admin/Admin`),
+  children: [{
+    path: '',
+    name: 'Setting',
+    component: () => import(`@/components/Setting/Setting`)
+  }]
 })
 
+// 侧边栏路由配置
 menus.forEach(item => {
   if (!item.sub) {
     routes.push({
@@ -50,10 +57,6 @@ menus.forEach(item => {
     })
   } else {
     item.sub.forEach(sub => {
-      // let param = ''
-      // if (sub.param) param = sub.componentName + '/:' + sub.param
-      // else param = sub.component
-      // console.log(param)
       routes.push({
         path: `/${sub.componentName}`,
         name: 'Admin',

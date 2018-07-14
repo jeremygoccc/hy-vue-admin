@@ -1,33 +1,35 @@
 <template>
   <div class="page">
-      <el-card class="box-card">
+    <el-col>
+        <el-card class="box-card">
           <div><i class="el-icon-info"></i></div>
           <div class="card-info">
               <span class="info-des">学生人数</span>
               <span class="info-nums">10000人</span>
           </div>
-      </el-card>
-      <el-card class="box-card">
+        </el-card>
+        <el-card class="box-card">
           <div><i class="el-icon-info"></i></div>
           <div class="card-info">
               <span class="info-des">学生人数</span>
               <span class="info-nums">10000人</span>
           </div>
-      </el-card>
-      <el-card class="box-card">
+        </el-card>
+        <el-card class="box-card">
           <div><i class="el-icon-info"></i></div>
           <div class="card-info">
               <span class="info-des">学生人数</span>
               <span class="info-nums">10000人</span>
           </div>
-      </el-card>
-      <el-card class="box-card">
+        </el-card>
+        <el-card class="box-card">
           <div><i class="el-icon-info"></i></div>
           <div class="card-info">
               <span class="info-des">学生人数</span>
               <span class="info-nums">10000人</span>
           </div>
-      </el-card>
+        </el-card>
+    </el-col>
   </div>
 </template>
 
