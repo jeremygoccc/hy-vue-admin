@@ -18,41 +18,42 @@
     <div class="loginbox registerbox" v-else>
       <el-form ref="registerForm" class="login-form" :model="registerForm" :rules="registerRules">
         <el-form-item label="通讯邮箱" prop="email">
-          <el-input type="text" placeholder="方便进行分类推送" v-model="registerForm.email"></el-input>
+          <el-input type="text" placeholder="方便进行分类推送" v-model="registerForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="register_password">
           <el-input class="psw" name="password" type="password" @keyup.enter.native="handleLogin" v-model="registerForm.password" autoComplete="on"></el-input>
         </el-form-item>
         <el-form-item label="姓名(中)" prop="register_user_name">
-          <el-input class="username" name="username" type="text" v-model="registerForm.username" autoComplete="on" placeholder="真实姓名"></el-input>
+          <el-input class="username" name="username" type="text" v-model="registerForm.name" autoComplete="on" placeholder="真实姓名"></el-input>
         </el-form-item>
         <el-form-item label="姓名(英)" prop="register_user_ename">
-          <el-input class="username" name="userename" type="text" v-model="registerForm.userename" autoComplete="on"  placeholder="没有可不填"></el-input>
+          <el-input class="username" name="userename" type="text" v-model="registerForm.ename" autoComplete="on"  placeholder="没有可不填"></el-input>
         </el-form-item>
         <el-form-item label="照片上传" prop="photo">
-          <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" drag :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <!-- <el-upload class="avatar-uploader" action="https://physic.gongbarry.xyz/regisn" :auto-upload="true" drag :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
+          </el-upload> -->
+          <input type="file" name="" id="">
         </el-form-item>
         <el-form-item label="单位">
           <el-input type="text"></el-input>
         </el-form-item>
         <el-form-item label="领域" prop="domain">
-          <el-cascader :options="domains" @change="handleDomainChange" expand-trigger="hover" v-model="registerForm.domainSelected" style="width: 300px" placeholder="请选择自己的领域"></el-cascader>
+          <el-cascader :options="domains" @change="handleDomainChange" expand-trigger="hover" v-model="registerForm.category" style="width: 300px" placeholder="请选择自己的领域"></el-cascader>
         </el-form-item>
         <el-form-item label="方向" prop="direct">
-          <el-select v-model="registerForm.direction" multiple placeholder="请选择领域后再选择方向(至多6个)" style="width: 300px">
+          <el-select v-model="registerForm.tag" multiple placeholder="请选择领域后再选择方向(至多6个)" style="width: 300px">
             <el-option v-for="(item, index) in directions" :key="index" :value="item.title">
             </el-option>
           </el-select>
-          <el-input type="text" class="inputtext" placeholder="如有需要可补充" v-for="(keyword, index) in keywords" :key="index" v-model="registerForm.keywords[index]"></el-input>
+          <el-input type="text" class="inputtext" placeholder="如有需要可补充" v-for="(keyword, index) in keywords" :key="index" v-model="registerForm.addTag[index]"></el-input>
         </el-form-item>
         <el-form-item label="个人网页链接">
           <el-input type="text" v-model="registerForm.privateURL"></el-input>
         </el-form-item>
         <el-form-item class="el-form-item-button">
-          <el-button type="primary" @click="register()" :loading="loading">立即注册</el-button>
+          <el-button type="primary" @click.native.prevent="handleRegister" :loading="loading">立即注册</el-button>
           <el-button type="info" @click="switchPages()">登录界面</el-button>
         </el-form-item>
       </el-form>
@@ -99,20 +100,21 @@ export default {
         login_password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       registerForm: {
-        email: '',
         username: '',
-        userename: '',
+        name: '',
+        ename: '',
         password: '',
         privateURL: '',
-        domainSelected: [],
-        keywords: []
+        category: [],
+        tag: [],
+        addTag: []
       },
       registerRules: {
-        photo: [{ required: true, message: '请上传照片', trigger: 'blur' }],
-        register_user_name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
-        domain: [{ required: true, message: '请输入自己的领域', trigger: 'blur' }],
-        direct: [{ required: true , message: '请输入自己的方向', trigger: 'blur' }],
-        email: [{ required: true, trigger: 'blur', validator: validateEmail }]
+        // photo: [{ required: true, message: '请上传照片', trigger: 'blur' }],
+        // register_user_name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
+        // domain: [{ required: true, message: '请输入自己的领域', trigger: 'blur' }],
+        // direct: [{ required: true , message: '请输入自己的方向', trigger: 'blur' }],
+        // email: [{ required: true, trigger: 'blur', validator: validateEmail }]
       },
       imageUrl: '',
       domains: [{
@@ -180,10 +182,13 @@ export default {
 
       if (!isJPGPNG) this.$message.error('上传照片只能是jpg或png')
       if (!isLt2M) this.$message.error('上传照片大小不能超过2MB')
+      // this.imageUrl = URL.createObjectURL(file.raw)
+      // console.log(imageUrl)
       return isJPGPNG && isLt2M
     },
     handleAvatarSuccess (res, file) {
       this.imageUrl = URL.createObjectURL(file.raw)
+      console.log(this.imageUrl)
     },
     handleDomainChange (e) {
       console.log(e)
@@ -191,6 +196,41 @@ export default {
         this.directions = res
         console.log(this.directions)
       }).catch(err => console.log(err))
+    },
+    handleRegister () {
+      console.log(this.registerForm)
+      // this.registerForm.tag = Object
+      let tagIdArr = []
+      this.registerForm.tag.forEach(tag => {
+        this.directions.forEach(direction => {
+          if (tag === direction.title) tagIdArr.push(direction.id)
+        })
+      })
+      let form = {
+        add_tag: this.registerForm.addTag.join(','),
+        category: this.registerForm.category[1],
+        ename: this.registerForm.ename,
+        name: this.registerForm.name,
+        password: this.registerForm.password,
+        privateURL: this.registerForm.privateURL,
+        tag: tagIdArr.join(','),
+        username: this.registerForm.username
+      }
+      console.log(form)
+      this.$refs.registerForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          this.$store.dispatch('Register', form)
+                    .then(() => {
+                      console.log('注册成功')
+                      this.loading = false
+                      this.$router.push({ path: '/Admin' })
+                    }).catch(err => {
+                      console.log('注册失败: ' + err)
+                      this.loading = false
+                    })
+        }
+      })
     },
     handleLogin () {
       this.$refs.loginForm.validate(valid => {
@@ -237,7 +277,7 @@ $bg = #2d3a4b
 $light_gray = #616161
 
 .login-container
-  background-image url('../../assets/snow.jpg')
+  background-image url('../../assets/snow.d26d5dd.jpg')
   background-repeat 'no-repeat'
   background-position '25px auto'
   background-size cover
