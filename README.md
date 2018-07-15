@@ -14,3 +14,30 @@
 - `npm run dev`  运行本地环境 <http://localhost:8080>
 - `npm run build` 编译
 
+## 目录设计
+```
+|—— build           # 编译目录
+|—— config          # 配置目录
+|—— src
+  |—— api           # 接口目录
+    |—— list.js
+    |—— login.js
+  |—— assets        # 静态资源目录
+  |—— components    # 组件目录
+  |—— config        # 动态化配置目录
+    |—— menu-config.js
+  |—— router        # 路由目录
+    |—— index.js
+  |—— store         # 状态管理目录
+    |—— modules
+      |—— user.js
+    |—— getters.js
+    |—— index.js
+  |—— utils         # 扩展目录
+    |—— auth.js
+    |—— request.js
+    |—— validate.js
+  |—— main.js
+  |—— mock.js
+  |—— permission.js # 路由权限验证
+```
