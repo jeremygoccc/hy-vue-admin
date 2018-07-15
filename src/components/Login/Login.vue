@@ -2,15 +2,16 @@
   <div class="login-container">
     <div class="loginbox" v-if="loginStatus">
       <el-form id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon ref="loginForm" label-position="right">
-        <h3 class="title">vue-element-admin</h3>
+        <h3 class="title">Welcome to</h3>
+        <h1 style="color:#251876 margin-bottom:100px" class="title">vue-element-admin</h1>
         <el-form-item label="邮箱" prop="login_email">
-          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
+          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input><br>
         </el-form-item>
         <el-form-item label="密码" prop="login_password">
           <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
         </el-form-item>
         <el-form-item class="el-form-item-button">
-          <el-button type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
+          <el-button style="background-color:#af51c3" type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
           <el-button type="info" @click="switchPages()">注册界面</el-button>
         </el-form-item>
       </el-form>
@@ -52,7 +53,7 @@
           <el-input type="text" v-model="registerForm.privateURL"></el-input>
         </el-form-item>
         <el-form-item class="el-form-item-button">
-          <el-button type="primary" @click="register()" :loading="loading">立即注册</el-button>
+          <el-button style="background-color:#af51c3" type="primary" @click="register()" :loading="loading">立即注册</el-button>
           <el-button type="info" @click="switchPages()">登录界面</el-button>
         </el-form-item>
       </el-form>
@@ -237,9 +238,9 @@ $bg = #2d3a4b
 $light_gray = #616161
 
 .login-container
-  background-image url('../../assets/snow.jpg')
+  background-image url('../../assets/banner.png')
   background-repeat 'no-repeat'
-  background-position '25px auto'
+  
   background-size cover
   width 100%
   min-height 100%
@@ -249,6 +250,11 @@ $light_gray = #616161
   // background -moz-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%)
   // background -o-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%)
   // background linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%)
+  .el-button
+    border none
+    border-radius 15px
+    margin-left 20px
+
   .el-input
     display inline-block
     height 47px
@@ -270,37 +276,44 @@ $light_gray = #616161
     border-radius 5px
     &__label
       width 75px
-      color white!important
+      color #877ad4!important
+      
 </style>
 
 <style lang="stylus" scoped>
 $bg = #2d3a4b
 $dark_gray = #889aa4
-$light_gray = #90aeff
+$light_gray = #877ad4
 .login-container
   //width 100%
   //background-color $bg
   //background-image linear-gradient(45deg,#063053, #9951ff)
   .login-form
     // height 100%
-    //position absolute
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6) 100%, rgba(0,0,0,0.6) 100%);
-    left 0
+    position absolute
+    //background: linear-gradient(to bottom, rgba(0,0,0,0.6) 100%, rgba(0,0,0,0.6) 100%);
+    left -60%
     right 0
     width 520px
     padding 35px 35px 15px 35px
     margin 120px auto
+    
+    height 400px
+    overflow-x hidden
+    overflow-y scroll
+    line-height 30px
+    
     .title
-      font-size 26px
+      padding-left 30px
       font-weight 400
       color $light_gray
-      margin 0 auto 40 auto
-      text-align center
+      
+      
       font-weight bold
     .el-form-item:last-child
       color #d9dbde
       display flex
-      justify-content center
+      //justify-content center
     .inputtext
       width 30%
     .avatar-uploader .el-upload
@@ -322,5 +335,7 @@ $light_gray = #90aeff
       width 178px
       height 178px
       display block
+    
+      
 </style>
 
