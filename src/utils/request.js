@@ -23,11 +23,12 @@ service.interceptors.request.use(config => {
 
 service.interceptors.response.use(
   response => {
-    const res = response.data
-    console.log(response)
+    const res = response
+    console.log(res)
     console.log(res.code)
     console.log(res.token)
-    if (res.code !== 20000) { // code非 20000抛错
+    console.log(res.status)
+    if (res.code !== 20000 && res.status !== 200) { // code非 20000 或者 status非 200抛错
       Message({
         messgae: res.messgae,
         type: 'error',
@@ -43,7 +44,7 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject('error')
+      return Promise.reject('reject error')
     } else {
       return response.data
     }
