@@ -9,12 +9,12 @@ let routes = []
 // 公共路由配置
 routes.push({
   path: '/',
-  name: 'Login',
-  redirect: '/Login',
-  component: () => import(`@/components/Login/Login`),
+  name: 'Index',
+  redirect: '/Index',
+  component: () => import(`@/components/Index/Index`),
   children: [{
-    path: '/Login',
-    component: () => import(`@/components/Login/Login`)
+    path: '/Index',
+    component: () => import(`@/components/Index/Index`)
   }]
 }, {
   path: '/Home',

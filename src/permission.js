@@ -4,7 +4,7 @@ import store from './store';
 import { getToken } from '@/utils/auth';
 import { Message } from 'element-ui'
 
-const whiteList = ['/login']
+const whiteList = ['/login', '/index']
 router.beforeEach((to, from, next) => {
   console.log('权限验证')
   NProgress.start()

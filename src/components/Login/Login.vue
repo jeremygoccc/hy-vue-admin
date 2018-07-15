@@ -2,7 +2,7 @@
   <div class="login-container">
       <div class="loginbox">
          <el-form  id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon ref="loginForm" label-position="left">
-          <h3 class="title">vue-element-admin</h3>
+          <h3 class="title">hy-vue-admin</h3>
           <el-form-item label="账号" prop="username">
             <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input>
           </el-form-item>
@@ -110,7 +110,7 @@ $light_gray = #616161
         -webkit-box-shadow 0 0 0 1000px $bg inset!important
         -webkit-text-fill-color #fff!important
   .el-form-item
-    border 1px solid rgba(255, 255, 255, 0.1)
+    // border 1px solid rgba(255, 255, 255, 0.1)
     background rgba(0, 0, 0, 0.1)
     border-radius 5px
     color #eee
