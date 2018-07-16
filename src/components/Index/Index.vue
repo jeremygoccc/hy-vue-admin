@@ -3,7 +3,7 @@
       <el-card class="box-card">
           <div class="header" slot="header">
               <h3>备忘录</h3>
-              <el-input type="text" v-model="note" style="width: 200px">输入清单</el-input>
+              <el-input type="text" v-model="note" style="width: 200px" placeholder="输入待办事项"></el-input>
               <el-button type="primary" icon="el-icon-plus" circle @click="addNote"></el-button>
           </div>
           <div v-for="(item, index) in items" :key="index" :class="item.done ? 'item text done' : 'item text'" @click="toggle(index)">
@@ -56,7 +56,7 @@ export default {
 
 .box-card
     width 350px
-    margin 0 auto
+    margin 100px auto
     .header
         text-align center
     .text

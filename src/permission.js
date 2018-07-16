@@ -1,7 +1,7 @@
 import router from './router/index'
 import NProgress from 'nprogress'
-import store from './store';
-import { getToken } from '@/utils/auth';
+import store from './store'
+import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
 
 const whiteList = ['/login', '/index']
@@ -28,10 +28,10 @@ router.beforeEach((to, from, next) => {
       }
     }
   } else {
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.indexOf(to.path.toLowerCase()) !== -1) {
       next()
     } else {
-      next({ path: '/login' })
+      next({ path: '/index' })
       NProgress.done()
     }
   }

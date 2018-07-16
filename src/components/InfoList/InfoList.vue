@@ -74,7 +74,6 @@
 import menus from '@/config/menu-config'
 import { getList } from '@/api/list'
 import { login } from '@/api/login'
-import InfoForm from '@/components/InfoForm/InfoForm'
 
 export default {
   data() {

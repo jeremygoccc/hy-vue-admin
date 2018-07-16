@@ -15,10 +15,11 @@ routes.push({
   children: [{
     path: '/Index',
     component: () => import(`@/components/Index/Index`)
-  }, {
-    path: '/Login',
-    component: () => import(`@/components/Login/Login`)
   }]
+}, {
+  path: '/Login',
+  name: 'Login',
+  component: () => import(`@/components/Login/Login`)
 }, {
   path: '/Home',
   name: 'Home',
