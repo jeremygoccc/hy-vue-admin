@@ -159,6 +159,7 @@ export default {
               }
             }
           })
+          fields.sort((a, b) => b - a)
           dynamicSearch.options = fields
         }
       })
