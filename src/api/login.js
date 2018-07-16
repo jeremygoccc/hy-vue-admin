@@ -2,20 +2,38 @@ import request from '@/utils/request'
 
 export function login (username, password) {
   return request({
-    url: '/user/login',
+    url: '/login',
     method: 'post',
     data: {
       username,
       password
-    }
+    },
+    transformRequest: [function (data) {
+      let ret = ''
+      for (let it in data) {
+        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+      }
+      return ret
+    }]
   })
 }
 
 export function register (data) {
+  console.log(data)
   return request({
     url: '/resign',
     method: 'post',
-    data: data
+    data: { ...data },
+    transformRequest: [
+      function (data) {
+        let ret = ''
+        for (let it in data) {
+          ret +=
+            encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+        }
+        return ret
+      }
+    ]
   })
 }
 

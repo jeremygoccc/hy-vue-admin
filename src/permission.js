@@ -1,7 +1,7 @@
 import router from './router/index'
 import NProgress from 'nprogress'
-import store from './store';
-import { getToken } from '@/utils/auth';
+import store from './store'
+import { getToken } from '@/utils/auth'
 import { Message } from 'element-ui'
 
 const whiteList = ['/login']

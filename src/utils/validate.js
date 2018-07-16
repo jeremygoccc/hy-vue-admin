@@ -12,3 +12,8 @@ export function isValidEmail (email) {
   const emailRegex = /^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/
   return emailRegex.test(email)
 }
+
+export function isValidPhone (phone) {
+  const phoneRegex = /^1[3-9](\d{9})$/
+  return phoneRegex.test(phone)
+}

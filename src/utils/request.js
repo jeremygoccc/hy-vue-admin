@@ -10,6 +10,7 @@ const service = axios.create({
 })
 
 service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// service.defaults.headers.post['Accept'] = 'application/json'
 
 service.interceptors.request.use(config => {
   if (store.getters.token) {
