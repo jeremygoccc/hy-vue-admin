@@ -9,7 +9,7 @@
           <div v-for="(item, index) in items" :key="index" :class="item.done ? 'item text done' : 'item text'" @click="toggle(index)">
               {{ item.text }}
           </div>
-          <span>{{ done }}/{{ items.length }}</span>
+          <span>已完成： {{ done }}/{{ items.length }}</span>
       </el-card>
   </div>
 </template>
