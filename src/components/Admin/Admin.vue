@@ -21,11 +21,18 @@
 <script type="text/ecmascript-6">
 import NavMenu from '@/components/NavMenu/NavMenu'
 import Header from '@/components/Header/Header'
+import { toEmail } from '@/utils/register.js'
+import { getToken } from '@/utils/auth'
+
 export default {
   data() {
     return {
 
     }
+  },
+  created () {
+    toEmail(getToken()).then(res => console.log(res))
+                      .catch(err => console.log(err))
   },
   components: {
     NavMenu,

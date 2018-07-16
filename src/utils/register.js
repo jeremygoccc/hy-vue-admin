@@ -13,3 +13,10 @@ export function getTag (cId) {
     method: 'get'
   })
 }
+
+export function toEmail (id) {
+  return request({
+    url: `/toEmail/${id}`,
+    method: 'get'
+  })
+}
