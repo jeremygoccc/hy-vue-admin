@@ -58,7 +58,7 @@ export default {
         },
         isVisible (metaRoles) {
 			let flag = false
-			if (metaRoles.length == 0) return true
+			if (metaRoles.length === 0) return true
             metaRoles.some(metaRole => {
                 this.roles.some(role => {
                     if (role === metaRole) {

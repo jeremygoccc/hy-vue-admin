@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function getCategory () {
   return request({
-    url: '/getCategory',
+    url: '/getCategorys',
     method: 'get'
   })
 }

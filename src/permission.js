@@ -1,8 +1,8 @@
 import router from './router/index'
 import NProgress from 'nprogress'
-import store from './store'
+// import store from './store'
 import { getToken } from '@/utils/auth'
-import { Message } from 'element-ui'
+// import { Message } from 'element-ui'
 
 const whiteList = ['/login']
 router.beforeEach((to, from, next) => {

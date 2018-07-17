@@ -10,13 +10,13 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/getCategory': {
-        target: 'https://physic.gongbarry.xyz',
-        changeOrigin: true,
-        pathRewrite: {
-          '^/getCategory': '/'
-        }
-      }
+      // '/getCategory': {
+      //   target: 'https://physic.gongbarry.xyz',
+      //   changeOrigin: true,
+      //   pathRewrite: {
+      //     '^/getCategory': '/'
+      //   }
+      // }
     },
 
     // Various Dev Server settings

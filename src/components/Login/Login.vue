@@ -43,10 +43,10 @@
         <el-form-item label="单位" prop="unit">
           <el-input type="text" v-model="registerForm.unit"></el-input>
         </el-form-item>
-        <el-form-item label="领域" prop="domain">
+        <el-form-item label="领域" prop="domain" required>
           <el-cascader :options="domains" @change="handleDomainChange" expand-trigger="hover" v-model="registerForm.category" style="width: 300px" placeholder="请选择自己的领域"></el-cascader>
         </el-form-item>
-        <el-form-item label="方向" prop="direct">
+        <el-form-item label="方向" prop="direct" required>
           <el-select v-model="registerForm.tag" multiple placeholder="请选择领域后再选择方向(至多6个)" style="width: 300px">
             <el-option v-for="(item, index) in directions" :key="index" :value="item.title">
             </el-option>
