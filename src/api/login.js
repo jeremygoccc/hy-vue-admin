@@ -7,33 +7,23 @@ export function login (username, password) {
     data: {
       username,
       password
-    },
-    transformRequest: [function (data) {
-      let ret = ''
-      for (let it in data) {
-        ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-      }
-      return ret
-    }]
+    }
+    // transformRequest: [function (data) {
+    //   let ret = ''
+    //   for (let it in data) {
+    //     ret += encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
+    //   }
+    //   return ret
+    // }]
   })
 }
 
 export function register (data) {
   console.log(data)
   return request({
-    url: '/resign',
+    url: '/user/register',
     method: 'post',
-    data: { ...data },
-    transformRequest: [
-      function (data) {
-        let ret = ''
-        for (let it in data) {
-          ret +=
-            encodeURIComponent(it) + '=' + encodeURIComponent(data[it]) + '&'
-        }
-        return ret
-      }
-    ]
+    data: { ...data }
   })
 }
 

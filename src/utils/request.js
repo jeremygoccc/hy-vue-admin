@@ -1,16 +1,22 @@
 import axios from 'axios'
+import qs from 'qs'
 import store from '../store'
 import { getToken } from '@/utils/auth'
 import { Message, MessageBox } from 'element-ui'
 
 const service = axios.create({
   baseURL: process.env.BASE_API,
-  // baseURL: 'http://localhost:8080',
-  timeout: 5000
+  timeout: 10000
 })
 
 service.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
 // service.defaults.headers.post['Accept'] = 'application/json'
+// service.defaults.transformRequest = [data => {
+//   return qs.stringify(data)
+// }]
+// service.defaults.transformResponse = [data => {
+//   return JSON.parse(data)
+// }]
 
 service.interceptors.request.use(config => {
   if (store.getters.token) {
@@ -22,13 +28,14 @@ service.interceptors.request.use(config => {
   Promise.reject(err)
 })
 
+// 设置全局请求次数与间隙
+service.defaults.retry = 4
+service.defaults.retryDelay = 1000
+
 service.interceptors.response.use(
   response => {
     const res = response
     console.log(res)
-    console.log(res.code)
-    console.log(res.token)
-    console.log(res.status)
     if (res.code !== 20000 && res.status !== 200) { // code非 20000 或者 status非 200抛错
       Message({
         messgae: res.messgae,
@@ -49,14 +56,28 @@ service.interceptors.response.use(
     } else {
       return response.data
     }
-  }, err => {
+  }, err => { // 重新发请求
     console.log('err' + err)
     Message({
       messgae: err.messgae,
       type: 'error',
       duration: 5 * 1000
     })
-    return Promise.reject(err)
+    let config = err.config
+    if (!config || !config.retry) return Promise.reject(err)
+    config.__retryCount = config.__retryCount || 0
+
+    if (config.__retryCount >= config.retry) return Promise.reject(err)
+    config.__retryCount += 1
+
+    const backoff = new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, config.retryDelay || 1)
+    })
+    return backoff.then(() => {
+      return service(config)
+    })
   }
 )
 

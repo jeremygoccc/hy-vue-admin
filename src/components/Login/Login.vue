@@ -1,14 +1,14 @@
 <template>
   <div class="login-container">
     <div class="loginbox" v-if="loginStatus">
-      <el-form id="login" class="login-form" autoComplete="on" :model="loginForm" :rules="loginRules" status-icon ref="loginForm" label-position="right">
+      <el-form id="login" ref="form" class="login-form" :model="loginForm" :rules="loginRules" status-icon label-position="right">
         <h3 class="title">Welcome to</h3>
         <h1 style="color:#251876 margin-bottom:100px" class="title">vue-element-admin</h1>
         <el-form-item label="邮箱" prop="username">
-          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="username"></el-input><br>
+          <el-input name="username" type="text" v-model="loginForm.username" autoComplete="on" placeholder="通讯邮箱"></el-input><br>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on"></el-input>
+          <el-input name="password" type="password" @keyup.enter.native="handleLogin" v-model="loginForm.password" autoComplete="on" placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item class="el-form-item-button">
           <el-button style="background-color:#af51c3" type="primary" @click.native.prevent="handleLogin" :loading="loading">立即登录</el-button>
@@ -17,17 +17,17 @@
       </el-form>
     </div>
     <div class="loginbox registerbox" v-else>
-      <el-form ref="registerForm" class="login-form" :model="registerForm" :rules="registerRules">
-        <el-form-item label="通讯邮箱" prop="username">
-          <el-input type="text" placeholder="方便进行分类推送" v-model="registerForm.username"></el-input>
+      <el-form ref="form" class="login-form" :model="registerForm" :rules="registerRules" status-icon>
+        <el-form-item label="通讯邮箱" prop="email">
+          <el-input type="text" placeholder="方便进行分类推送" v-model="registerForm.email"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input class="psw" name="password" type="password" @keyup.enter.native="handleLogin" v-model="registerForm.password" autoComplete="on"></el-input>
         </el-form-item>
-        <el-form-item label="姓名(中)" prop="rname">
-          <el-input class="username" name="username" type="text" v-model="registerForm.name" autoComplete="on" placeholder="真实姓名"></el-input>
+        <el-form-item label="姓名(中)" prop="c_name">
+          <el-input class="username" name="username" type="text" v-model="registerForm.c_name" autoComplete="on" placeholder="真实姓名"></el-input>
         </el-form-item>
-        <el-form-item label="姓名(英)" prop="register_user_ename">
+        <el-form-item label="姓名(英)" prop="e_name">
           <el-input class="username" name="userename" type="text" v-model="registerForm.ename" autoComplete="on"  placeholder="没有可不填"></el-input>
         </el-form-item>
         <el-form-item label="联系方式" prop="phone">
@@ -43,11 +43,11 @@
         <el-form-item label="单位" prop="unit">
           <el-input type="text" v-model="registerForm.unit"></el-input>
         </el-form-item>
-        <el-form-item label="领域" prop="domain" required>
-          <el-cascader :options="domains" @change="handleDomainChange" expand-trigger="hover" v-model="registerForm.category" style="width: 300px" placeholder="请选择自己的领域"></el-cascader>
+        <el-form-item label="领域" prop="domain">
+          <el-cascader :options="domains" @change="handleDomainChange" expand-trigger="hover" v-model="registerForm.category" style="width: 300px" placeholder="请选择自己的领域" required></el-cascader>
         </el-form-item>
-        <el-form-item label="方向" prop="direct" required>
-          <el-select v-model="registerForm.tag" multiple placeholder="请选择领域后再选择方向(至多6个)" style="width: 300px">
+        <el-form-item label="方向" prop="direct">
+          <el-select v-model="registerForm.tag" multiple placeholder="请选择领域后再选择方向(至多6个)" style="width: 300px" required>
             <el-option v-for="(item, index) in directions" :key="index" :value="item.title">
             </el-option>
           </el-select>
@@ -71,7 +71,7 @@ import { getCategory, getTag } from '@/utils/register'
 
 export default {
   name: 'Login',
-  data() {
+  data () {
     const validatePass = (rule, value, callback) => {
       if (value.length < 5) {
         callback(new Error('密码不能小于5位'))
@@ -95,18 +95,18 @@ export default {
     }
     return {
       loginForm: {
-        username: 'admin',
+        username: '',
         userename: '',
-        password: 'admin'
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateEmail}],
         password: [{ required: true, trigger: 'blur', validator: validatePass }]
       },
       registerForm: {
-        username: '',
-        name: '',
-        ename: '',
+        email: '',
+        c_name: '',
+        e_name: '',
         password: '',
         privateURL: '',
         phone: '',
@@ -117,10 +117,10 @@ export default {
       },
       registerRules: {
         // photo: [{ required: true, message: '请上传照片', trigger: 'blur' }],
-        name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
+        c_name: [{ required: true, message: '请输入真实姓名', trigger: 'blur' }],
         // domain: [{ required: true, message: '请输入自己的领域', trigger: 'blur' }],
         // direct: [{ required: true , message: '请输入自己的方向', trigger: 'blur' }],
-        username: [{ required: true, trigger: 'blur', validator: validateEmail }],
+        email: [{ required: true, trigger: 'blur', validator: validateEmail }],
         password: [{ required: true, trigger: 'blur', validator: validatePass }],
         phone: [{ trigger: 'blur', validator: validatePhone }],
         unit: [{ required: true, trigger: 'blur', message: '请输入自己的单位信息' }]
@@ -132,24 +132,24 @@ export default {
         children: [{
           value: 'shejiyuanze',
           label: '设计原则'
-        }],
+        }]
       }],
       domainSelected: [],
       directions: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
       }],
       direction: [],
       keywords: [
@@ -215,31 +215,32 @@ export default {
           if (tag === direction.title) tagIdArr.push(direction.id)
         })
       })
-      let form = {
-        add_tag: this.registerForm.addTag.join(','),
-        category: this.registerForm.category[1],
-        ename: this.registerForm.ename,
-        name: this.registerForm.name,
-        password: this.registerForm.password,
-        myurl: this.registerForm.privateURL,
-        tag: tagIdArr.join(','),
-        username: this.registerForm.username,
-        phone: this.registerForm.phone,
-        unit: this.registerForm.unit
-      }
-      console.log(form)
-      this.$refs.registerForm.validate(valid => {
+      this.registerForm.tag = tagIdArr
+      // let form = {
+      //   add_tag: this.registerForm.addTag.join(','),
+      //   category: this.registerForm.category[1],
+      //   ename: this.registerForm.ename,
+      //   name: this.registerForm.name,
+      //   password: this.registerForm.password,
+      //   myurl: this.registerForm.privateURL,
+      //   tag: tagIdArr.join(','),
+      //   username: this.registerForm.username,
+      //   phone: this.registerForm.phone,
+      //   unit: this.registerForm.unit
+      // }
+      // console.log(form)
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$store.dispatch('Register', form)
-                    .then(() => {
-                      console.log('注册成功')
-                      this.loading = false
-                      this.$router.push({ path: '/Admin' })
-                    }).catch(err => {
-                      console.log('注册失败: ' + err)
-                      this.loading = false
-                    })
+          this.$store.dispatch('Register', this.registerForm)
+            .then(() => {
+              console.log('注册成功')
+              this.loading = false
+              this.$router.push({ path: '/Admin' })
+            }).catch(err => {
+              console.log('注册失败: ' + err)
+              this.loading = false
+            })
         } else {
           this.$message.error('请检查输入格式')
           return false
@@ -247,18 +248,18 @@ export default {
       })
     },
     handleLogin () {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.form.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm)
-                    .then(() => {
-                      console.log('登录成功')
-                      this.loading = false
-                      this.$router.push({ path: '/Admin' })
-                    }).catch(err => {
-                      console.log('登录失败: ' + err)
-                      this.loading = false
-                    })
+            .then(() => {
+              console.log('登录成功')
+              this.loading = false
+              this.$router.push({ path: '/Admin' })
+            }).catch(err => {
+              console.log('登录失败: ' + err)
+              this.loading = false
+            })
         } else {
           this.$message.error('请检查输入格式')
           return false
@@ -267,12 +268,16 @@ export default {
     },
     switchPages () {
       this.loginStatus = !this.loginStatus
+      setTimeout(() => {
+        this.resetForm('form')
+      }, 100);
     },
     register () {
       console.log(this.registerForm)
     },
     resetForm (formName) {
-      this.$refs[formName].resetFields()
+      console.log(this.$refs[formName])
+      if (this.$refs[formName] !== undefined) this.$refs[formName].resetFields()
     }
   },
   computed: {
@@ -361,7 +366,6 @@ $light_gray = #877ad4
       font-weight 400
       color $light_gray
 
-
       font-weight bold
     .el-form-item:last-child
       color #d9dbde
@@ -389,6 +393,4 @@ $light_gray = #877ad4
       height 178px
       display block
 
-
 </style>
-

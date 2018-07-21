@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "lint": "eslint --ext .js,.vue src",
+    "server": "cd server && nodemon app",
+    "lint": "eslint --fix --ext .js,.vue src",
     "build": "node build/build.js"
   },
   "dependencies": {
@@ -15,6 +16,7 @@
     "element-ui": "^2.4.3",
     "js-cookie": "^2.2.0",
     "nprogress": "^0.2.0",
+    "qs": "^6.5.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1",

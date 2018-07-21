@@ -26,51 +26,51 @@
 
 <script type="text/ecmascript-6">
 import { mapGetters } from 'vuex'
-import menu from "@/config/menu-config"
+import menu from '@/config/menu-config'
 
 export default {
-    name: 'NavMenu',
-    data() {
-        return {
-			menu: menu,
-			// roles: []
-        };
-    },
-    components: {
-
-	},
-	created () {
-		// console.log(this.$store.getters.roles)
-		// this.roles = this.$store.getters.roles
-	},
-    computed: {
-        ...mapGetters([
-      		'name',
-            'roles'
-        ])
-    },
-    methods: {
-        handleOpen (key, keyPath) {
-          console.log(key, keyPath);
-        },
-        handleClose (key, keyPath) {
-          console.log(key, keyPath);
-        },
-        isVisible (metaRoles) {
-			let flag = false
-			if (metaRoles.length === 0) return true
-            metaRoles.some(metaRole => {
-                this.roles.some(role => {
-                    if (role === metaRole) {
-						flag = true
-						return true
-					}
-                })
-			})
-            return flag
-        }
+  name: 'NavMenu',
+  data () {
+    return {
+      menu: menu
+      // roles: []
     }
-};
+  },
+  components: {
+
+  },
+  created () {
+    // console.log(this.$store.getters.roles)
+    // this.roles = this.$store.getters.roles
+  },
+  computed: {
+    ...mapGetters([
+      		'name',
+      'roles'
+    ])
+  },
+  methods: {
+    handleOpen (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    handleClose (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    isVisible (metaRoles) {
+      let flag = false
+      if (metaRoles.length === 0) return true
+      metaRoles.some(metaRole => {
+        this.roles.some(role => {
+          if (role === metaRole) {
+            flag = true
+            return true
+          }
+        })
+      })
+      return flag
+    }
+  }
+}
 </script>
 
 <style scoped lang="stylus">

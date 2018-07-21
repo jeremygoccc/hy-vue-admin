@@ -9,7 +9,7 @@ export function isValidURL (url) {
 }
 
 export function isValidEmail (email) {
-  const emailRegex = /^([A-Za-z0-9_\-\.])+\@(163.com|qq.com|42du.cn)$/
+  const emailRegex = /^([A-Za-z0-9_\-.])+@(163.com|qq.com|42du.cn|gmail.com)$/
   return emailRegex.test(email)
 }
 

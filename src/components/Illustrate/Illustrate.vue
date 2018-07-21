@@ -14,15 +14,15 @@
 
 <script type="text/ecmascript-6">
 export default {
-    name: 'Illustrate',
-    data() {
-      return {
-
-      }
-    },
-    components: {
+  name: 'Illustrate',
+  data () {
+    return {
 
     }
+  },
+  components: {
+
+  }
 }
 </script>
 

@@ -35,12 +35,12 @@
 
 <script type="text/ecmascript-6">
 export default {
-  data() {
+  data () {
     return {
 
     }
   },
-  created() {
+  created () {
     console.log(this.$store.state.user)
   },
   components: {

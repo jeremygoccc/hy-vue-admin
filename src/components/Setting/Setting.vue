@@ -43,7 +43,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  data() {
+  data () {
     const validateConfirmPass = (rule, value, callback) => {
       if (value === '') callback(new Error('请再次输入新密码'))
       else if (value !== this.ruleForm.new) callback(new Error('两次输入密码不一致'))

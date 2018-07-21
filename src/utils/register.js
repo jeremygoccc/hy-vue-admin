@@ -14,9 +14,10 @@ export function getTag (cId) {
   })
 }
 
-export function toEmail (id) {
+export function toEmail (id, data) {
   return request({
     url: `/toEmail/${id}`,
-    method: 'get'
+    method: 'post',
+    data: { ...data }
   })
 }

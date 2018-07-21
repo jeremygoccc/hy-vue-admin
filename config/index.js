@@ -10,12 +10,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      // '/getCategory': {
-      //   target: 'https://physic.gongbarry.xyz',
-      //   changeOrigin: true,
-      //   pathRewrite: {
-      //     '^/getCategory': '/'
-      //   }
+      // '/koa': {
+      //   target: 'http://localhost:3008',
+      //   changeOrigin: true
       // }
     },
 

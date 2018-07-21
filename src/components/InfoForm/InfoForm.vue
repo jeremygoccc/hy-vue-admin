@@ -21,12 +21,12 @@
 export default {
 
   prop: [
-      'dynamicSearch'
+    'dynamicSearch'
   ],
-  data() {
+  data () {
     return {
-        dynamicForm: '',
-        dynamicSearchs: this.dynamicSearch
+      dynamicForm: '',
+      dynamicSearchs: this.dynamicSearch
     }
   },
   components: {

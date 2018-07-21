@@ -77,7 +77,7 @@ import { login } from '@/api/login'
 import InfoForm from '@/components/InfoForm/InfoForm'
 
 export default {
-  data() {
+  data () {
     return {
       dynamicForm: {},
       dynamicSearchs: [],
@@ -95,7 +95,7 @@ export default {
       length: 10
     }
   },
-  created() {
+  created () {
     this.tableInit()
   },
   watch: {
@@ -119,7 +119,7 @@ export default {
             return true
           }
         }
-        if (item.sub)
+        if (item.sub) {
           item.sub.some(sub => {
             if (sub.componentName === this.$route.name && (!sub.param || sub.param === this.$route.query.info)) {
               if (sub.tableTitle) {
@@ -128,6 +128,7 @@ export default {
               }
             }
           })
+        }
       })
     },
     tableFieldConInit (item) {
@@ -151,7 +152,7 @@ export default {
         if (dynamicSearch.search === 'select') {
           let fields = []
           // console.log(dynamicSearch.field)
-          this.tableData.forEach(data => {   // 这里后期应该是所有数据
+          this.tableData.forEach(data => { // 这里后期应该是所有数据
             // console.log(data)
             for (let key in data) {
               // console.log(key)
@@ -167,12 +168,12 @@ export default {
     },
     setList () {
       getList(this.url)
-          .then(res => {
-            this.tableData = res.data.splice(this.start, this.length)
-            console.log(this.tableData)
-            this.tableSearchsInit()
-            this.loading = false
-          })
+        .then(res => {
+          this.tableData = res.data.splice(this.start, this.length)
+          console.log(this.tableData)
+          this.tableSearchsInit()
+          this.loading = false
+        })
     },
     edit () {
       this.editVisible = true

@@ -43,7 +43,7 @@ import Breadcrumb from '@/components/BreadCrumb/BreadCrumb'
 
 export default {
   name: 'Header',
-  data() {
+  data () {
     return {
     }
   },

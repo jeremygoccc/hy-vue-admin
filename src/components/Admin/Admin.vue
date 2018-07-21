@@ -22,17 +22,21 @@
 import NavMenu from '@/components/NavMenu/NavMenu'
 import Header from '@/components/Header/Header'
 import { toEmail } from '@/utils/register.js'
-import { getToken } from '@/utils/auth'
+import { getToken, getUserId } from '@/utils/auth'
 
 export default {
-  data() {
+  data () {
     return {
 
     }
   },
   created () {
-    toEmail(getToken()).then(res => console.log(res))
-                      .catch(err => console.log(err))
+    const userId = getUserId()
+    const data = {
+      token: getToken()
+    }
+    toEmail(userId, data).then(res => console.log(res))
+      .catch(err => console.log(err))
   },
   components: {
     NavMenu,

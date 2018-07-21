@@ -1,5 +1,5 @@
 import { login, logout, getInfo, register } from '@/api/login'
-import { getToken, setToken, delToken } from '@/utils/auth'
+import { getToken, setToken, delToken, setUserId } from '@/utils/auth'
 
 const user = {
   // 单一状态树, 页面状态管理容器对象
@@ -43,7 +43,10 @@ const user = {
         register(userData).then(response => {
           const data = response
           setToken(data.token)
+          setUserId(data.userId)
           commit('SET_TOKEN', data.token)
+          // commit('SET_USER_ID', data.userId)
+          // commit('SET_USER_NAME', data)
           resolve()
         }).catch(err => {
           reject(err)
