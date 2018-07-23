@@ -28,7 +28,7 @@ routes.push({
   name: 'Admin',
   component: () => import(`@/views/Admin/Admin`),
   children: [{
-    path: '/',
+    path: '/',5
     name: 'Home',
     component: () => import(`@/components/Home/Home`)
   }]
