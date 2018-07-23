@@ -21,6 +21,10 @@ service.interceptors.request.use(config => {
   Promise.reject(err)
 })
 
+// 设置全局请求次数与间隙
+service.defaults.retry = 4
+service.defaults.retryDelay = 1000
+
 service.interceptors.response.use(
   response => {
     const res = response.data
