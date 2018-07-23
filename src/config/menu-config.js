@@ -15,8 +15,7 @@ module.exports = [
         icon: 'el-icon-document',
         componentName: 'InfoList',
         param: 'student',
-        url:
-                    '/info/studentList',
+        url: '/info/studentList',
         tableTitle: [
           {
             title: '名字',
@@ -45,8 +44,7 @@ module.exports = [
         icon: 'el-icon-document',
         componentName: 'InfoList',
         param: 'class',
-        url:
-                    '/info/classList',
+        url: '/info/classList',
         tableTitle: [
           {
             title: '班级名称',
@@ -80,8 +78,7 @@ module.exports = [
         icon: 'el-icon-document',
         componentName: 'InfoList',
         param: 'teacher',
-        url:
-                    '/info/teacherList',
+        url: '/info/teacherList',
         tableTitle: [
           {
             title: '姓名',
