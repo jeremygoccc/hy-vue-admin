@@ -1,17 +1,24 @@
-import router from './router/index'
-import NProgress from 'nprogress'
-import store from './store'
+import router from '@/router'
+import store from '@/store'
 import { getToken } from '@/utils/auth'
-import { Message } from 'element-ui'
+import { Message, Loading } from 'element-ui'
 
 const whiteList = ['/login', '/index']
+
+const LoadOptions = {
+  lock: true,
+  text: '加载中',
+  spinner: 'el-icon-loading',
+  background: 'rgba(0, 0, 0, 0.7)'
+}
+
 router.beforeEach((to, from, next) => {
   console.log('权限验证')
-  NProgress.start()
+  /* eslint-disable no-unused-vars */
+  let loadingInstance = Loading.service(LoadOptions)
   if (getToken()) {
     if (to.path === '/login') {
-      next({ path: '/'})
-      NProgress.done()
+      next({ path: '/' })
     } else {
       console.log('进入后台页')
       if (store.getters.roles.length === 0) {
@@ -32,11 +39,10 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       next({ path: '/index' })
-      NProgress.done()
     }
   }
 })
-
 router.afterEach(() => {
-  NProgress.done()
+  let loadingInstance = Loading.service(LoadOptions)
+  loadingInstance.close()
 })

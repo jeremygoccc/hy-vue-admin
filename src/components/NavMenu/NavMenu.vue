@@ -1,7 +1,10 @@
 <template>
     <el-row class="tac">
+        <transition name="el-fade-in">
+            <div class="navLogo" v-show="!isCollapse">H O M Y I T</div>
+        </transition>
         <el-col :span="24">
-            <el-menu default-active="2" @open="handleOpen" @close="handleClose" class="el-menu-vertical-demo" unique-opened router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
+            <el-menu default-active="2" @open="handleOpen" @close="handleClose" :collapse="isCollapse" class="el-menu-vertical-demo" unique-opened router background-color="#545c64" text-color="#fff" active-text-color="#ffd04b">
                 <template v-for="item in menu">
                     <template v-if="!item.hasOwnProperty('meta') || !item.meta.hasOwnProperty('roles') || isVisible(item.meta.roles)">
                         <el-menu-item v-if="!item.sub" :index="item.id" :key="item.id">
@@ -33,7 +36,8 @@ export default {
     data() {
         return {
 			menu: menu,
-			// roles: []
+            // roles: []
+            isCollapse: false
         };
     },
     components: {
@@ -41,7 +45,10 @@ export default {
 	},
 	created () {
 		// console.log(this.$store.getters.roles)
-		// this.roles = this.$store.getters.roles
+        // this.roles = this.$store.getters.roles
+        this.$bus.$on('collapse', () => {
+            this.isCollapse = !this.isCollapse
+        })
 	},
     computed: {
         ...mapGetters([
@@ -70,10 +77,23 @@ export default {
             return flag
         }
     }
-};
+}
 </script>
 
 <style scoped lang="stylus">
-.over-hide
-	overflow hidden
+$header_height = 60px
+.navLogo
+    color #fff
+    height $header_height
+    line-height $header_height
+    font-size 25px
+    text-align center
+    border-bottom 1px solid #666
+.el-menu
+    border none
+    .el-menu-item
+        // padding-left 0!important
+        // display inline-flex
+    .over-hide
+        overflow hidden
 </style>

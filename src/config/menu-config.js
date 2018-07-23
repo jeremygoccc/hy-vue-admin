@@ -16,7 +16,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'student',
         url:
-          '/info/studentList',
+                    '/info/studentList',
         tableTitle: [
           {
             title: '名字',
@@ -46,7 +46,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'class',
         url:
-          '/info/classList',
+                    '/info/classList',
         tableTitle: [
           {
             title: '班级名称',
@@ -81,7 +81,7 @@ module.exports = [
         componentName: 'InfoList',
         param: 'teacher',
         url:
-          '/info/teacherList',
+                    '/info/teacherList',
         tableTitle: [
           {
             title: '姓名',

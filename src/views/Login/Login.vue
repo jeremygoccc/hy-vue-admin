@@ -50,6 +50,7 @@ export default {
       },
       loading: false,
       pwdType: 'password',
+      loginFlag: false
     }
   },
   created () {
@@ -62,8 +63,8 @@ export default {
           this.$store.dispatch('Login', this.loginForm)
                     .then(() => {
                       console.log('登录成功')
-                      this.loading = false
                       this.$router.push({ path: '/Admin' })
+                      this.loading = false
                     }).catch(err => {
                       console.log('登录失败: ' + err)
                       this.loading = false
@@ -77,8 +78,7 @@ export default {
     switchPages () {
       this.loginStatus = !this.loginStatus
     },
-    register () {
-    },
+    register () {},
     resetForm (formName) {
       this.$refs[formName].resetFields()
     }
@@ -140,8 +140,9 @@ $light_gray = #90aeff
       margin 0 auto 40 auto
       text-align center
       font-weight bold
-    .el-form-item:last-child
-      display flex
-      justify-content center
+    .el-form-item
+      &:last-child
+        display flex
+        justify-content center
 </style>
 

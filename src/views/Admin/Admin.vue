@@ -1,9 +1,11 @@
 <template>
   <div class="page">
     <el-container class="container">
-      <el-aside width="200px">
-        <NavMenu></NavMenu>
-      </el-aside>
+      <el-collapse-transition>
+        <el-aside :style="{ width: isCollaspe ? 'auto' : '200px' }">
+          <NavMenu></NavMenu>
+        </el-aside>
+      </el-collapse-transition>
       <el-container>
         <el-header class="header">
           <Header></Header>
@@ -24,8 +26,13 @@ import Header from '@/components/Header/Header'
 export default {
   data() {
     return {
-
+      isCollaspe: false
     }
+  },
+  created () {
+    this.$bus.$on('collapse', () => {
+      this.isCollaspe = !this.isCollaspe
+    })
   },
   components: {
     NavMenu,

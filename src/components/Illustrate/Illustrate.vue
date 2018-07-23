@@ -4,7 +4,7 @@
           <span>Hy-Vue-Admin后台管理系统</span>
       </div>
       <div class="des">
-          <span>- 基于vue、vuex、element-ui以及easy-mock后台管理系统</span>
+          <span>- 基于vue、vuex、element-ui以及YApi后台管理系统</span>
       </div>
       <div class="des">
           <span>- 基于 element-ui 设计语言，提供后台管理系统常用场景</span>

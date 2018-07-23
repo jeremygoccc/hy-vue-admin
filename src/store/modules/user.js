@@ -46,6 +46,7 @@ const user = {
           if (data.roles && data.roles.length > 0) {
             commit('SET_ROLES', data.roles)
           } else {
+            /* eslint-disable */
             reject('getInfo: roles must be a non-null array!')
           }
           commit('SET_NAME', data.name)

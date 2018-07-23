@@ -6,29 +6,29 @@ Vue.use(Router)
 
 let routes = []
 
-// 公共路由配置
+// 视图路由配置
 routes.push({
   path: '/',
   name: 'Index',
   redirect: '/Index',
-  component: () => import(`@/components/Index/Index`),
+  component: () => import(`@/views/Index/Index`),
   children: [{
     path: '/Index',
-    component: () => import(`@/components/Index/Index`)
+    component: () => import(`@/views/Index/Index`)
   }]
 }, {
   path: '/Login',
   name: 'Login',
-  component: () => import(`@/components/Login/Login`)
+  component: () => import(`@/views/Login/Login`)
 }, {
   path: '/Home',
   name: 'Home',
   redirect: '/Admin',
-  component: () => import(`@/components/Admin/Admin`)
+  component: () => import(`@/views/Admin/Admin`)
 }, {
   path: '/Admin',
   name: 'Admin',
-  component: () => import(`@/components/Admin/Admin`),
+  component: () => import(`@/views/Admin/Admin`),
   children: [{
     path: '/',
     name: 'Home',
@@ -37,7 +37,7 @@ routes.push({
 }, {
   path: '/Setting',
   name: 'Admin',
-  component: () => import(`@/components/Admin/Admin`),
+  component: () => import(`@/views/Admin/Admin`),
   children: [{
     path: '',
     name: 'Setting',
@@ -45,13 +45,13 @@ routes.push({
   }]
 })
 
-// 侧边栏路由配置
+// 后台侧边栏路由配置
 menus.forEach(item => {
   if (!item.sub) {
     routes.push({
       path: `/${item.componentName}`,
       name: 'Admin',
-      component: () => import(`@/components/Admin/Admin`),
+      component: () => import(`@/views/Admin/Admin`),
       children: [{
         path: '',
         name: item.componentName,
@@ -64,7 +64,7 @@ menus.forEach(item => {
       routes.push({
         path: `/${sub.componentName}`,
         name: 'Admin',
-        component: () => import(`@/components/Admin/Admin`),
+        component: () => import(`@/views/Admin/Admin`),
         children: [{
           path: '',
           name: sub.componentName,

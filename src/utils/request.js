@@ -4,8 +4,8 @@ import { getToken } from '@/utils/auth'
 import { Message, MessageBox } from 'element-ui'
 
 const service = axios.create({
-  baseURL: process.env.BASE_API,
-  // baseURL: 'http://localhost:8080',
+  // baseURL: process.env.BASE_API,
+  baseURL: 'https://yapi.homyit.cn/mock/25',
   timeout: 5000
 })
 
@@ -24,9 +24,9 @@ service.interceptors.request.use(config => {
 service.interceptors.response.use(
   response => {
     const res = response.data
-    console.log(response)
-    console.log(res.code)
-    console.log(res.token)
+    // console.log(response)
+    // console.log(res.code)
+    // console.log(res.token)
     if (res.code !== 20000) { // code非 20000抛错
       Message({
         messgae: res.messgae,
@@ -43,6 +43,7 @@ service.interceptors.response.use(
           })
         })
       }
+      /* eslint-disable */
       return Promise.reject('error')
     } else {
       return response.data
@@ -54,7 +55,21 @@ service.interceptors.response.use(
       type: 'error',
       duration: 5 * 1000
     })
-    return Promise.reject(err)
+    let config = err.config
+    if (!config || !config.retry) return Promise.reject(err)
+    config.__retryCount = config.__retryCount || 0
+
+    if (config.__retryCount >= config.retry) return Promise.reject(err)
+    config.__retryCount += 1
+
+    const backoff = new Promise(resolve => {
+      setTimeout(() => {
+        resolve()
+      }, config.retryDelay || 1)
+    })
+    return backoff.then(() => {
+      return service(config)
+    })
   }
 )
 

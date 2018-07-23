@@ -223,13 +223,17 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.search-item
+  float left
 .search-button
-  // float right
+  float left
   margin-left 10px
   margin-bottom 20px
 .opreation
   margin-top: 15px
   position: relative
+  display: flex
+  justify-content space-between
   .el-row
     display: inline-block
   .el-pagination
