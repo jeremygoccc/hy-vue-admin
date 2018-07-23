@@ -26,8 +26,6 @@
   |—— components    # 组件目录
   |—— config        # 动态化配置目录
     |—— menu-config.js
-  |—— router        # 路由目录
-    |—— index.js
   |—— store         # 状态管理目录
     |—— modules
       |—— user.js
@@ -37,7 +35,9 @@
     |—— auth.js
     |—— request.js
     |—— validate.js
+    |—— permission.js # 路由权限验证
+  |—— views         # 视图目录
   |—— main.js
-  |—— mock.js
-  |—— permission.js # 路由权限验证
+  |—— router.js     # 路由文件
+  |—— App.vue
 ```
