@@ -16,28 +16,30 @@
 
 ## 目录设计
 ```
-|—— build           # 编译目录
-|—— config          # 配置目录
+|—— build                   # 编译目录
+|—— config                  # 配置目录
 |—— src
-  |—— api           # 接口目录
+  |—— api                   # 接口目录
     |—— list.js
     |—— login.js
-  |—— assets        # 静态资源目录
-  |—— components    # 组件目录
-  |—— config        # 动态化配置目录
+  |—— assets                # 静态资源目录
+  |—— components            # 公共组件目录
+  |—— config                # 动态化配置目录
     |—— menu-config.js
-  |—— store         # 状态管理目录
+  |—— router
+    |—— index.js            # 主视图路由
+    |—— menu.js             # 侧边栏路由
+  |—— store                 # 状态管理目录
     |—— modules
       |—— user.js
     |—— getters.js
     |—— index.js
-  |—— utils         # 扩展目录
+  |—— utils                 # 扩展目录
     |—— auth.js
-    |—— request.js
+    |—— request.js          # axios请求封装
     |—— validate.js
-    |—— permission.js # 路由权限验证
-  |—— views         # 视图目录
+    |—— permission.js       # 路由权限验证
+  |—— views                 # 视图组件目录
   |—— main.js
-  |—— router.js     # 路由文件
   |—— App.vue
 ```

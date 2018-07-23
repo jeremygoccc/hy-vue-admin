@@ -1,4 +1,4 @@
-import router from '@/router'
+import router from '@/router/index'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
 import { Message, Loading } from 'element-ui'
