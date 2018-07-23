@@ -1,14 +1,5 @@
-const axios = require('axios')
-const qs = require('qs')
-const BASE_URL = 'https://physic.gongbarry.xyz'
-
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
-axios.defaults.transformRequest = [data => {
-  return qs.stringify(data)
-}]
-// axios.defaults.transformResponse = [data => {
-//   return JSON.parse(data)
-// }]
+const _axios = require('../utils/axios')
+// const redis = require('../utils/redis')
 
 module.exports = {
   index: async (ctx, next) => {
@@ -17,7 +8,7 @@ module.exports = {
   getCategory: async (ctx, next) => {
     console.log(ctx.request)
     console.log('跨域成功')
-    await axios.get(`${BASE_URL}/getCategory`)
+    await _axios.get(`/getCategory`)
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {
@@ -30,7 +21,7 @@ module.exports = {
   },
   getTag: async (ctx, next) => {
     console.log(ctx.params)
-    await axios.get(`${BASE_URL}/getTag/${ctx.params.id}`)
+    await _axios.get(`/getTag/${ctx.params.id}`)
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {
@@ -58,7 +49,7 @@ module.exports = {
       unit: registerForm.unit
     }
     console.log(form)
-    await axios.post(`${BASE_URL}/resign`, form)
+    await _axios.post(`/resign`, form)
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {
@@ -70,7 +61,7 @@ module.exports = {
       .catch(err => console.log(err))
   },
   login: async (ctx, next) => {
-    await axios.post(`${BASE_URL}/login`, ctx.request.body)
+    await _axios.post(`/login`, ctx.request.body)
       .then(res => {
         if (res.data.code === 200) {
           ctx.response.body = res.data.data
@@ -80,11 +71,16 @@ module.exports = {
       })
       .catch(err => console.log(err))
   },
+  logout: async (ctx, next) => {
+    ctx.response.body = {
+      code: 20000
+    }
+  },
   toEmail: async (ctx, next) => {
     console.log(`ctx.params.id: ${ctx.params.id}`)
     console.log(`ctx.request.body.username: ${ctx.request.body.username}`)
     console.log(`ctx.request.body.token: ${ctx.request.body.token}`)
-    await axios.post(`${BASE_URL}/toEmail/${ctx.params.id}`, ctx.request.body)
+    await _axios.post(`/toEmail/${ctx.params.id}`, ctx.request.body)
       .then(res => {
         console.log(res)
         if (res.data.code === 200) {

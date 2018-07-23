@@ -34,11 +34,11 @@
           <el-input class="username" name="userphone" type="text" v-model="registerForm.phone" autoComplete="on"  placeholder=""></el-input>
         </el-form-item>
         <el-form-item label="照片上传" prop="photo">
-          <!-- <el-upload class="avatar-uploader" action="https://physic.gongbarry.xyz/regisn" :auto-upload="true" drag :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+          <el-upload class="avatar-uploader" action="https://physic.gongbarry.xyz/uploads" :auto-upload="true" drag :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
             <img v-if="imageUrl" :src="imageUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload> -->
-          <input type="file" name="" id="">
+          </el-upload>
+          <!-- <input type="file" name="" id=""> -->
         </el-form-item>
         <el-form-item label="单位" prop="unit">
           <el-input type="text" v-model="registerForm.unit"></el-input>
@@ -67,7 +67,8 @@
 
 <script type="text/ecmascript-6">
 import { isValidUsername, isValidEmail, isValidPhone } from '@/utils/validate'
-import { getCategory, getTag } from '@/utils/register'
+import { getCategory, getTag, toEmail } from '@/utils/register'
+import { getToken, getUserId } from '@/utils/auth'
 
 export default {
   name: 'Login',
@@ -196,6 +197,7 @@ export default {
       return isJPGPNG && isLt2M
     },
     handleAvatarSuccess (res, file) {
+      console.log(res)
       this.imageUrl = URL.createObjectURL(file.raw)
       console.log(this.imageUrl)
     },
@@ -236,6 +238,10 @@ export default {
             .then(() => {
               console.log('注册成功')
               this.loading = false
+              const userId = getUserId()
+              const data = { token: getToken() }
+              toEmail(userId, data).then(res => console.log(res))
+                .catch(err => console.log(err))
               this.$router.push({ path: '/Admin' })
             }).catch(err => {
               console.log('注册失败: ' + err)
@@ -298,7 +304,6 @@ $light_gray = #616161
 .login-container
   background-image url('../../assets/banner.png')
   background-repeat 'no-repeat'
-
   background-size cover
   width 100%
   min-height 100%
@@ -312,7 +317,6 @@ $light_gray = #616161
     border none
     border-radius 15px
     margin-left 20px
-
   .el-input
     display inline-block
     height 47px
@@ -342,6 +346,8 @@ $light_gray = #616161
 $bg = #2d3a4b
 $dark_gray = #889aa4
 $light_gray = #877ad4
+$avatar_height = 178px
+
 .login-container
   //width 100%
   //background-color $bg
@@ -355,17 +361,14 @@ $light_gray = #877ad4
     width 520px
     padding 35px 35px 15px 35px
     margin 120px auto
-
     height 400px
     overflow-x hidden
     overflow-y scroll
     line-height 30px
-
     .title
       padding-left 30px
       font-weight 400
       color $light_gray
-
       font-weight bold
     .el-form-item:last-child
       color #d9dbde
@@ -379,18 +382,21 @@ $light_gray = #877ad4
       cursor pointer
       position relative
       overflow hidden
+      &-dragger
+        width $avatar_height!important
+        height $avatar_height!important
+        line-height $avatar_height!important
     .avatar-uploader .el-upload:hover
       border-color #409EFF
     .avatar-uploader-icon
       font-size 28px
       color #8c939d
-      width 178px
-      height 178px
-      line-height 178px
+      width $avatar_height
+      height $avatar_height
+      line-height $avatar_height
       text-align center
     .avatar
-      width 178px
-      height 178px
+      width $avatar_height
+      height $avatar_height
       display block
-
 </style>

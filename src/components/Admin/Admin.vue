@@ -21,8 +21,6 @@
 <script type="text/ecmascript-6">
 import NavMenu from '@/components/NavMenu/NavMenu'
 import Header from '@/components/Header/Header'
-import { toEmail } from '@/utils/register.js'
-import { getToken, getUserId } from '@/utils/auth'
 
 export default {
   data () {
@@ -31,12 +29,6 @@ export default {
     }
   },
   created () {
-    const userId = getUserId()
-    const data = {
-      token: getToken()
-    }
-    toEmail(userId, data).then(res => console.log(res))
-      .catch(err => console.log(err))
   },
   components: {
     NavMenu,

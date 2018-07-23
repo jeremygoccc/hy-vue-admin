@@ -3,7 +3,9 @@ const router = require('koa-router')()
 const HomeController = require('./controller/home')
 
 const whiteOrigins = [
-  'http://localhost:8080'
+  'http://localhost:8080',
+  'http://localhost:8081',
+  'http://localhost:8082'
 ]
 // const corsOptions = {
 //   origin: (origin, callback) => {
@@ -31,6 +33,7 @@ module.exports = app => {
   router.get('/getTag/:id', HomeController.getTag)
   router.post('/user/register', HomeController.register)
   router.post('/user/login', HomeController.login)
+  router.post('/user/logout', HomeController.logout)
   router.post('/toEmail/:id', HomeController.toEmail)
 
   app.use(router.routes())
