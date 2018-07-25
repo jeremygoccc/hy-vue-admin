@@ -35,7 +35,7 @@ service.defaults.retryDelay = 1000
 service.interceptors.response.use(
   response => {
     const res = response
-    console.log(res)
+    console.log(response)
     if (res.code !== 20000 && res.status !== 200) { // code非 20000 或者 status非 200抛错
       Message({
         messgae: res.messgae,
@@ -52,7 +52,8 @@ service.interceptors.response.use(
           })
         })
       }
-      return Promise.reject('reject error')
+      /* eslint-disable */
+      return Promise.reject('error')
     } else {
       return response.data
     }

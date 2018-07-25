@@ -74,7 +74,6 @@
 import menus from '@/config/menu-config'
 import { getList } from '@/api/list'
 import { login } from '@/api/login'
-import InfoForm from '@/components/InfoForm/InfoForm'
 
 export default {
   data () {
@@ -161,6 +160,7 @@ export default {
               }
             }
           })
+          fields.sort((a, b) => b - a)
           dynamicSearch.options = fields
         }
       })
@@ -224,13 +224,17 @@ export default {
 </script>
 
 <style scoped lang="stylus">
+.search-item
+  float left
 .search-button
-  // float right
+  float left
   margin-left 10px
   margin-bottom 20px
 .opreation
   margin-top: 15px
   position: relative
+  display: flex
+  justify-content space-between
   .el-row
     display: inline-block
   .el-pagination

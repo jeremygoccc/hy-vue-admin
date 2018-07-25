@@ -67,8 +67,8 @@
 
 <script type="text/ecmascript-6">
 import { isValidUsername, isValidEmail, isValidPhone } from '@/utils/validate'
-import { getCategory, getTag, toEmail } from '@/utils/register'
-import { getToken, getUserId } from '@/utils/auth'
+import { getCategory, getTag } from '@/utils/register'
+import { sendEmail } from '@/utils/oridinary'
 
 export default {
   name: 'Login',
@@ -238,10 +238,7 @@ export default {
             .then(() => {
               console.log('注册成功')
               this.loading = false
-              const userId = getUserId()
-              const data = { token: getToken() }
-              toEmail(userId, data).then(res => console.log(res))
-                .catch(err => console.log(err))
+              sendEmail()
               this.$router.push({ path: '/Admin' })
             }).catch(err => {
               console.log('注册失败: ' + err)
@@ -258,14 +255,14 @@ export default {
         if (valid) {
           this.loading = true
           this.$store.dispatch('Login', this.loginForm)
-            .then(() => {
-              console.log('登录成功')
-              this.loading = false
-              this.$router.push({ path: '/Admin' })
-            }).catch(err => {
-              console.log('登录失败: ' + err)
-              this.loading = false
-            })
+                    .then(() => {
+                      console.log('登录成功')
+                      this.$router.push({ path: '/Admin' })
+                      this.loading = false
+                    }).catch(err => {
+                      console.log('登录失败: ' + err)
+                      this.loading = false
+                    })
         } else {
           this.$message.error('请检查输入格式')
           return false
@@ -278,9 +275,7 @@ export default {
         this.resetForm('form')
       }, 100);
     },
-    register () {
-      console.log(this.registerForm)
-    },
+    register () {},
     resetForm (formName) {
       console.log(this.$refs[formName])
       if (this.$refs[formName] !== undefined) this.$refs[formName].resetFields()

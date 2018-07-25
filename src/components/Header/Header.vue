@@ -1,14 +1,15 @@
 <template>
   <el-row>
       <el-col :span="24">
-          <i class="el-icon-setting"></i>
-          <Breadcrumb></Breadcrumb>
-          <el-badge :value="12">
+          <div class="breadcrumb">
+            <i class="el-icon-setting" @click="collaspe"></i>
+            <Breadcrumb></Breadcrumb>
+          </div>
+          <el-badge :value="mails.length">
             <el-dropdown>
               <i class="el-icon-bell"></i>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>第一封邮件</el-dropdown-item>
-                <el-dropdown-item>第二封邮件</el-dropdown-item>
+                <el-dropdown-item v-for="(mail, index) in mails" :key="index">{{ mail.title }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </el-badge>
@@ -45,6 +46,18 @@ export default {
   name: 'Header',
   data () {
     return {
+      fullscreenLoading: false,
+      mails: [
+        {
+          title: '一封邮件'
+        },
+        {
+          title: '上级信息'
+        },
+        {
+          title: '下级反馈'
+        }
+      ]
     }
   },
   components: {
@@ -58,10 +71,21 @@ export default {
     ])
   },
   methods: {
+    collaspe () {
+      console.log('collaspe')
+      this.$bus.$emit('collapse', '111')
+    },
     logout () {
       console.log('点击退出')
+      const loading = this.$loading({
+        lock: true,
+        text: '注销中',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.$store.dispatch('LogOut').then(() => {
         console.log('退出成功')
+        loading.close()
         // this.$route.push({ path: '/' })
         location.reload()
       }).catch(err => {
@@ -75,9 +99,13 @@ export default {
 <style scoped lang="stylus">
 $font-size = 16px
 .el-col
-  .el-breadcrumb
-    display inline-block
-    margin-left 10px
+  display flex
+  .breadcrumb
+    .el-icon-setting
+      cursor pointer
+    .el-breadcrumb
+      display inline-block
+      margin-left 10px
   .el-badge
     position absolute
     top 20px
