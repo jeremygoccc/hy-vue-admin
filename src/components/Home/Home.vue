@@ -30,6 +30,23 @@
           </div>
         </el-card>
     </el-col>
+    <!-- <el-col class="notification">
+        <el-collapse accordion>
+            <div class="el-collapse-item" title="欢迎中心">
+                当前时间：2018年7月24日21:15分
+            </div>
+        </el-collapse>
+        <el-collapse v-model="activeName" accordion>
+            <el-collapse-item title="公告" name="1">
+                <div>基于vue与ElementUI的可配置化后台权限管理系统</div>
+                <div>适合团队前后端分离协作开发</div>
+            </el-collapse-item>
+            <el-collapse-item title="公告" name="2">
+                <div>由于系统的复杂性与软件开发的必然性</div>
+                <div>加上宏奕团队能力水平有限，使用过程中的bug希望能及时反馈！</div>
+            </el-collapse-item>
+        </el-collapse>
+    </el-col> -->
   </div>
 </template>
 
@@ -37,7 +54,7 @@
 export default {
   data() {
     return {
-
+        activeName: '1'
     }
   },
   created() {
@@ -75,4 +92,8 @@ $font-size = 16px
             margin-bottom: 10px
         .info-nums
             font-weight: bolder
+.notification
+    .el-collapse
+        display inline-block
+        min-width 45%
 </style>

@@ -17,6 +17,7 @@ router.beforeEach((to, from, next) => {
   /* eslint-disable no-unused-vars */
   let loadingInstance = Loading.service(LoadOptions)
   if (getToken()) {
+    console.log(getToken())
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
