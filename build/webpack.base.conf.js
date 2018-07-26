@@ -52,8 +52,17 @@ module.exports = {
         include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [resolve('src/assets')],
+        options: {
+          symbolId: '[name]'
+        }
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
         loader: 'url-loader',
+        exclude: [resolve('src/assets')],
         options: {
           limit: 10000,
           name: utils.assetsPath('img/[name].[hash:7].[ext]')
@@ -75,6 +84,20 @@ module.exports = {
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
       }
+      // {
+      //   test: /\.svg$/,
+      //   // loader: 'svg-sprite-loader',
+      //   include: [
+      //     path.resolve(__dirname, '../src/assets')
+      //   ],
+      //   loader: 'svg-sprite?' + JSON.stringify({
+      //     name: '[name]',
+      //     prefixize: true
+      //   })
+      //   // options: {
+      //   //   symbolld: 'icon-[name]'
+      //   // }
+      // }
     ]
   },
   node: {

@@ -46,7 +46,7 @@
                     <template slot="title">
                         <b style="font-size: 17px; margin-right: 5px">公告</b><i class="header-icon el-icon-info"></i>
                     </template>
-                    <span>理电学院项目开发测试中...</span>
+                    <span>宏奕2018官网开发测试中...</span>
                 </el-collapse-item>
             </el-collapse>
         </el-card>

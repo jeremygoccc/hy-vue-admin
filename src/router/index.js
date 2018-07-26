@@ -8,11 +8,11 @@ Vue.use(Router)
 routes.push({
   path: '/',
   name: 'Index',
-  redirect: '/Login',
-  component: () => import(`@/views/Login/Login`),
+  redirect: '/Index',
+  component: () => import(`@/views/Index/Index`),
   children: [{
-    path: '/Login',
-    component: () => import(`@/views/Login/Login`)
+    path: '/Index',
+    component: () => import(`@/views/Index/Index`)
   }]
 }, {
   path: '/Login',
