@@ -1,10 +1,21 @@
 <template>
     <div class="page">
-        这是首页
-        <icon type="home-fill"></icon>
-        <icon type="eye-fill"></icon>
-        <icon type="rocket-fill"></icon>
-        <transition><icon type="apple-fill"></icon></transition>
+        <el-card class="box-card">
+            <div class="header" slot="header">
+                <h3>Todo List</h3>
+                <el-input type="text" v-model="note" style="width: 200px" placeholder="输入待办事项"></el-input>
+                <el-button type="primary" icon="el-icon-plus" circle @click="addNote" style="margin-left: 10px"></el-button>
+            </div>
+            <div v-for="(item, index) in items" :key="index" :class="item.done ? 'item text done' : 'item text'" @click="toggle(index)">
+                {{ item.text }}
+            </div>
+            <span>已完成： {{ done }}/{{ items.length }}</span>
+        </el-card>
+        <div class="github">
+            <a href="https://github.com/fxbabys/hy-vue-admin">
+                <icon type="github-fill" :width="40" :height="40"></icon>
+            </a>
+        </div>
     </div>
 </template>
 
@@ -12,14 +23,14 @@
 export default {
     data() {
       return {
-          items: [{
-              text: '学习',
-              done: false
-          }, {
-              text: '吃饭',
-              done: false
-          }],
-          note: ''
+            items: [{
+                text: '学习',
+                done: false
+            }, {
+                text: '吃饭',
+                done: false
+            }],
+            note: ''
       }
     },
     methods: {
@@ -60,4 +71,8 @@ export default {
         cursor pointer
     .done
         text-decoration line-through
+.github
+    position absolute
+    top .625rem
+    right .625rem
 </style>
