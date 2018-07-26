@@ -1,53 +1,52 @@
 <template>
-  <div class="page">
-      这是首页
-      <icon type="home-fill"></icon>
-      <icon type="eye-fill"></icon>
-      <icon type="rocket-fill"></icon>
-      <icon type="404"></icon>
-  </div>
+    <div class="page">
+        这是首页
+        <icon type="home-fill"></icon>
+        <icon type="eye-fill"></icon>
+        <icon type="rocket-fill"></icon>
+        <transition><icon type="apple-fill"></icon></transition>
+    </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-  data() {
-    return {
-        items: [{
-            text: '学习',
-            done: false
-        }, {
-            text: '吃饭',
-            done: false
-        }],
-        note: ''
-    }
-  },
-  methods: {
-    addNote () {
-        if (!this.note) return
-        this.items.push({
-            text: this.note,
-            done: false
-        })
-        this.note = ''
+    data() {
+      return {
+          items: [{
+              text: '学习',
+              done: false
+          }, {
+              text: '吃饭',
+              done: false
+          }],
+          note: ''
+      }
     },
-    toggle (index) {
-        this.items[index].done = !this.items[index].done
-    }
-  },
-  computed: {
-    done () {
-      return this.items.filter(v => v.done).length
-    }
-  },
-  components: {
+    methods: {
+      addNote () {
+          if (!this.note) return
+          this.items.push({
+              text: this.note,
+              done: false
+          })
+          this.note = ''
+      },
+      toggle (index) {
+          this.items[index].done = !this.items[index].done
+      }
+    },
+    computed: {
+      done () {
+        return this.items.filter(v => v.done).length
+      }
+    },
+    components: {
 
-  }
+    }
 }
 </script>
 
 <style scoped lang="stylus">
-import './assets/svg/logo.svg'
 .box-card
     width 350px
     margin 100px auto
