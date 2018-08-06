@@ -9,6 +9,9 @@ import '@/utils/permisson'
 
 import '@/icons/index'
 
+import axios from 'axios'
+Vue.prototype.$axios = axios
+
 Vue.use(ElementUI)
 
 Vue.config.productionTip = false
